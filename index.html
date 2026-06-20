@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>نَفَس | المنصة المدرسية للاستدامة والنظافة</title>
+  
+  <!-- Google Fonts for Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Tajawal:wght@300;400;500;700;800&family=Outfit:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+  <!-- CSS Custom Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Toast Notification Overlay -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- ======================================================= -->
+  <!--                      LANDING PAGE                       -->
+  <!-- ======================================================= -->
+  <section id="landingSection" class="landing-section">
+    <!-- Header -->
+    <header class="landing-header glass">
+      <div class="container header-container">
+        <a href="#" class="logo-section">
+          <div class="logo-icon-wrapper">
+            <i class="fas fa-leaf"></i>
+          </div>
+          <div>
+            <span data-i18n="appName">نَفَس</span>
+            <div class="app-sub-text" data-i18n="appSlogan">المنصة المدرسية للاستدامة والنظافة</div>
+          </div>
+        </a>
+        <div class="nav-controls">
+          <button class="btn-icon theme-toggle-btn" aria-label="Toggle Theme">
+            <i class="fas fa-sun"></i>
+          </button>
+          <button class="btn btn-secondary lang-toggle-btn">
+            <span>English</span>
+          </button>
+          <button id="btnNavLogin" class="btn btn-primary" onclick="openModal('loginModal')">
+            <i class="fas fa-sign-in-alt"></i> <span data-i18n="login">تسجيل الدخول</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero container">
+      <div class="hero-badge">
+        <i class="fas fa-sparkles"></i>
+        <span data-i18n="appSlogan">ذكاء اصطناعي لبيئة مدرسية مستدامة</span>
+      </div>
+      <h1>
+        <span data-i18n="appName">نَفَس</span> | 
+        <span class="gradient-text">الذكاء الاصطناعي في خدمة بيئتنا المدرسية</span>
+      </h1>
+      <p data-i18n="upload_desc">نحلل صور المرافق المدرسية للكشف عن المخلفات وتصنيفها، وحساب مستويات النظافة وتوليد توصيات ذكية تدعم صناع القرار وتهيئ بيئة تعليمية أنظف.</p>
+      <div class="hero-cta">
+        <button class="btn btn-primary btn-lg" onclick="openModal('loginModal')" data-i18n="login">تسجيل الدخول</button>
+        <button class="btn btn-secondary btn-lg" onclick="simulateQuickDemo()" data-i18n="view_history">عرض السجلات التجريبية</button>
+      </div>
+    </section>
+
+    <!-- Idea Section (فكرة المشروع) -->
+    <section class="container info-section" style="border-top: 1px solid var(--border-color); padding-top: 5rem;">
+      <div class="section-title">
+        <h2>فكرة المشروع</h2>
+        <p>رؤية متكاملة لدمج الرؤية الحاسوبية بالحوافز التحفيزية لحماية بيئتنا التعليمية</p>
+      </div>
+      <div class="glass" style="padding: 2.5rem; display: grid; grid-template-columns: 1fr 1.2fr; gap: 2.5rem; align-items: center;">
+        <div>
+          <i class="fas fa-lightbulb" style="font-size: 3.5rem; color: var(--primary); margin-bottom: 1.5rem;"></i>
+          <h3 style="font-size: 1.6rem; font-weight: 800; margin-bottom: 1rem;">نظام بيئي متكامل للمدارس الذكية</h3>
+          <p style="color: var(--text-muted); line-height: 1.7; font-size: 0.95rem; margin-bottom: 1rem;">
+            يهدف مشروع "نَفَس" إلى إعادة تعريف إدارة النظافة والاستدامة داخل المدارس. من خلال استخدام كاميرات الهواتف وفحص الذكاء الاصطناعي، نقوم بالكشف عن النفايات وتصنيفها بدقة بالغة.
+          </p>
+          <p style="color: var(--text-muted); line-height: 1.7; font-size: 0.95rem;">
+            تتجاوز المنصة كونها أداة رصد بسيطة، لتوفر نظام نقاط وتصنيفات تفاعلي يشجع الطلاب على المشاركة الإيجابية والالتزام البيئي المستمر لدعم التنمية المستدامة.
+          </p>
+        </div>
+        <div style="background: rgba(16, 185, 129, 0.03); border: 1px dashed var(--border-color); border-radius: 12px; padding: 2rem;">
+          <h4 style="font-weight: 700; margin-bottom: 1rem; color: var(--primary);">الميزات الأساسية للمنصة:</h4>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 1rem;">
+            <li><i class="fas fa-check-circle text-primary" style="margin-left: 8px;"></i> كشف فوري وتصنيف النفايات بأربع فئات رئيسية.</li>
+            <li><i class="fas fa-check-circle text-primary" style="margin-left: 8px;"></i> نظام حماية وتدقيق متقدم لمنع التحايل وكشف الصور العشوائية.</li>
+            <li><i class="fas fa-check-circle text-primary" style="margin-left: 8px;"></i> لوحة تحكم تفاعلية توضح جودة المرافق مع توأم رقمي للمدرسة.</li>
+            <li><i class="fas fa-check-circle text-primary" style="margin-left: 8px;"></i> توصيات استباقية بناءً على خوارزميات رصد السلوكيات التلوثية.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- How it Works Section (كيف تعمل المنصة؟) -->
+    <section class="container info-section" style="padding-top: 3rem;">
+      <div class="section-title">
+        <h2>كيف تعمل المنصة؟</h2>
+        <p>دورة حياة الرصد والتنظيف والتحفيز داخل المدرسة</p>
+      </div>
+      <div class="grid-3" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
+        <!-- Step 1 -->
+        <div class="info-card glass" style="padding: 2rem 1.5rem;">
+          <div class="icon-wrapper admin-color"><i class="fas fa-camera"></i></div>
+          <h3 style="font-size: 1.05rem;">1. التقاط الصور للمرفق</h3>
+          <p style="font-size: 0.8rem; line-height: 1.5;">يقوم الطالب أو المعلم بتصوير المرفق المدرسي ورفعه فوراً للمنصة للمطابقة.</p>
+        </div>
+        <!-- Arrow 1 -->
+        <div class="arrows-animation-wrapper" style="align-self: center;">
+          <div class="arrow-item"><i class="fas fa-chevron-left"></i></div>
+        </div>
+        <!-- Step 2 -->
+        <div class="info-card glass" style="padding: 2rem 1.5rem;">
+          <div class="icon-wrapper student-color"><i class="fas fa-brain"></i></div>
+          <h3 style="font-size: 1.05rem;">2. التحليل بالذكاء الاصطناعي</h3>
+          <p style="font-size: 0.8rem; line-height: 1.5;">يتم تدقيق الصورة وتصنيف النفايات وحساب النسبة المئوية للتلوث ودقة الكشف.</p>
+        </div>
+        <!-- Arrow 2 -->
+        <div class="arrows-animation-wrapper" style="align-self: center;">
+          <div class="arrow-item"><i class="fas fa-chevron-left"></i></div>
+        </div>
+        <!-- Step 3 -->
+        <div class="info-card glass" style="padding: 2rem 1.5rem;">
+          <div class="icon-wrapper teacher-color"><i class="fas fa-tasks"></i></div>
+          <h3 style="font-size: 1.05rem;">3. اقتراح التوصيات والمهام</h3>
+          <p style="font-size: 0.8rem; line-height: 1.5;">يتم إدراج مهام النظافة والصيانة تلقائياً وإرسال تنبيه فوري لفرق العمل.</p>
+        </div>
+        <!-- Arrow 3 -->
+        <div class="arrows-animation-wrapper" style="align-self: center;">
+          <div class="arrow-item"><i class="fas fa-chevron-left"></i></div>
+        </div>
+        <!-- Step 4 -->
+        <div class="info-card glass" style="padding: 2rem 1.5rem;">
+          <div class="icon-wrapper" style="background: rgba(245, 158, 11, 0.12); color: #f59e0b;"><i class="fas fa-trophy"></i></div>
+          <h3 style="font-size: 1.05rem;">4. كسب النقاط والجوائز</h3>
+          <p style="font-size: 0.8rem; line-height: 1.5;">يحصل الطلاب على نقاط تضاف لمحفظتهم لترقية ترتيب فصولهم وفتح الأوسمة البيئية.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Data Sources Section (مصادر البيانات) -->
+    <section class="container info-section" style="padding-top: 3rem;">
+      <div class="section-title">
+        <h2>مصادر البيانات والمدخلات</h2>
+        <p>نظام محاكاة متكامل يعتمد على 4 مدخلات رئيسية لتوليد التحليلات</p>
+      </div>
+      <div class="grid-3" style="grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));">
+        <div class="info-card glass">
+          <div class="icon-wrapper student-color"><i class="fas fa-camera-retro"></i></div>
+          <h3>كاميرات الفحص البصري</h3>
+          <p>صور ميدانية ملتقطة ومرفوعة بواسطة تطبيق الجوال لرصد النفايات وفرزها بدقة.</p>
+        </div>
+        <div class="info-card glass">
+          <div class="icon-wrapper teacher-color"><i class="fas fa-bolt"></i></div>
+          <h3>مستشعرات الطاقة والمياه</h3>
+          <p>بيانات محاكاة لاستهلاك الكهرباء وتدفق المياه لمراقبة الهدر وترشيد الاستخدام.</p>
+        </div>
+        <div class="info-card glass">
+          <div class="icon-wrapper admin-color"><i class="fas fa-star-half-stroke"></i></div>
+          <h3>تقييمات واستبيانات المستخدمين</h3>
+          <p>مدخلات دورية من الطلاب والمعلمين حول مستوى نظافة غرف الصف والممرات.</p>
+        </div>
+        <div class="info-card glass">
+          <div class="icon-wrapper" style="background: rgba(16, 185, 129, 0.12); color: var(--primary);"><i class="fas fa-cloud-sun"></i></div>
+          <h3>رصد جودة الهواء والطقس</h3>
+          <p>بيانات محاكاة للمناخ ودرجات الحرارة وجاذبية الهواء لتوصية الأنشطة الخارجية.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Project Goals Section (أهداف المشروع) -->
+    <section class="container info-section" style="padding-top: 3rem;">
+      <div class="section-title">
+        <h2>أهداف المشروع ورؤية 2030</h2>
+        <p>تفعيل دور التكنولوجيا للمساهمة في تحقيق مستهدفات مبادرة السعودية الخضراء</p>
+      </div>
+      <div class="grid-3">
+        <div class="info-card glass" style="border-top: 4px solid var(--primary);">
+          <i class="fas fa-recycle" style="font-size: 2.5rem; color: var(--primary); margin-bottom: 1rem;"></i>
+          <h3>كفاءة إدارة المخلفات</h3>
+          <p>تقليص أوقات تراكم الأوساخ بالمرافق بنسبة 85% عبر التنبيهات المباشرة والتوصيات التلقائية.</p>
+        </div>
+        <div class="info-card glass" style="border-top: 4px solid #3b82f6;">
+          <i class="fas fa-leaf" style="font-size: 2.5rem; color: #3b82f6; margin-bottom: 1rem;"></i>
+          <h3>مستهدفات الحياد الكربوني</h3>
+          <p>نشر ثقافة ترشيد الاستهلاك وحساب الانبعاثات التقديرية للوصول بالمنشآت المدرسية للحياد التام.</p>
+        </div>
+        <div class="info-card glass" style="border-top: 4px solid #eab308;">
+          <i class="fas fa-graduation-cap" style="font-size: 2.5rem; color: #eab308; margin-bottom: 1rem;"></i>
+          <h3>رؤية المملكة 2030</h3>
+          <p>دعم رؤية 2030 بالتحول الرقمي التعليمي وزيادة نسبة المسطحات الخضراء والوعي البيئي للنشء.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Nafas Section (لماذا نَفَس؟) -->
+    <section class="container info-section" style="padding-top: 3rem;">
+      <div class="section-title">
+        <h2>لماذا نَفَس؟</h2>
+        <p>5 نقاط قوة تجعل المنصة فريدة وجاهزة للتبني والاعتماد</p>
+      </div>
+      <div class="grid-3" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
+        <div class="info-card glass" style="padding: 1.5rem;">
+          <i class="fas fa-gauge-high" style="font-size: 2rem; color: var(--primary); margin-bottom: 0.75rem;"></i>
+          <h3>دقة الكشف والتصنيف</h3>
+          <p style="font-size: 0.85rem;">خوارزميات مدربة للفرز وتحديد نسبة التلوث الفوري.</p>
+        </div>
+        <div class="info-card glass" style="padding: 1.5rem;">
+          <i class="fas fa-user-shield" style="font-size: 2rem; color: #3b82f6; margin-bottom: 0.75rem;"></i>
+          <h3>نظام مكافحة الغش</h3>
+          <p style="font-size: 0.85rem;">منع تزييف النقاط عبر فلتر تدقيق محتوى وسياق الصور.</p>
+        </div>
+        <div class="info-card glass" style="padding: 1.5rem;">
+          <i class="fas fa-gamepad" style="font-size: 2rem; color: #8b5cf6; margin-bottom: 0.75rem;"></i>
+          <h3>تحفيز التلعيب البيئي</h3>
+          <p style="font-size: 0.85rem;">نظام نقاط ذكي وأوسمة وجوائز تقديرية ممتازة للطلبة.</p>
+        </div>
+        <div class="info-card glass" style="padding: 1.5rem;">
+          <i class="fas fa-calendar-days" style="font-size: 2rem; color: #eab308; margin-bottom: 0.75rem;"></i>
+          <h3>تقويم بيئي متفاعل</h3>
+          <p style="font-size: 0.85rem;">تنظيم وجدولة حملات النظافة والتشجير مع التنبيهات.</p>
+        </div>
+        <div class="info-card glass" style="padding: 1.5rem;">
+          <i class="fas fa-comments" style="font-size: 2rem; color: #ec4899; margin-bottom: 0.75rem;"></i>
+          <h3>مساعد توعوي ذكي</h3>
+          <p style="font-size: 0.85rem;">مستشار ذكي يجيب فوراً على الاستفسارات الفنية والبيئية.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Team Section (فريق العمل) -->
+    <section class="container info-section" style="padding-top: 3rem;">
+      <div class="section-title">
+        <h2>فريق العمل</h2>
+        <p>الخبرات والشخصيات التي تقف خلف تطوير هذا الحل البيئي والتقني</p>
+      </div>
+      <div class="grid-3" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
+        <!-- Member 1 -->
+        <div class="info-card glass" style="padding: 1.5rem;">
+          <div class="user-avatar" style="width: 60px; height: 60px; font-size: 1.5rem; margin: 0 auto 1rem;">أش</div>
+          <h3 style="font-size: 1.1rem; margin-bottom: 0.25rem;">م. أحمد الشهري</h3>
+          <span style="font-size: 0.75rem; color: var(--primary); font-weight: 700; display: block; margin-bottom: 0.5rem;">قائد المشروع ومطور الذكاء الاصطناعي</span>
+          <p style="font-size: 0.75rem;">خبرة 5 سنوات في الرؤية الحاسوبية وإدارة البرمجيات البيئية.</p>
+        </div>
+        <!-- Member 2 -->
+        <div class="info-card glass" style="padding: 1.5rem;">
+          <div class="user-avatar" style="width: 60px; height: 60px; font-size: 1.5rem; margin: 0 auto 1rem; background: #3b82f6;">سع</div>
+          <h3 style="font-size: 1.1rem; margin-bottom: 0.25rem;">د. سارة العتيبي</h3>
+          <span style="font-size: 0.75rem; color: #3b82f6; font-weight: 700; display: block; margin-bottom: 0.5rem;">مستشارة الاستدامة والبيئة</span>
+          <p style="font-size: 0.75rem;">دكتوراه في العلوم البيئية واستراتيجيات التنمية المستدامة.</p>
+        </div>
+        <!-- Member 3 -->
+        <div class="info-card glass" style="padding: 1.5rem;">
+          <div class="user-avatar" style="width: 60px; height: 60px; font-size: 1.5rem; margin: 0 auto 1rem; background: #8b5cf6;">رغ</div>
+          <h3 style="font-size: 1.1rem; margin-bottom: 0.25rem;">م. رائد الغامدي</h3>
+          <span style="font-size: 0.75rem; color: #8b5cf6; font-weight: 700; display: block; margin-bottom: 0.5rem;">مهندس رؤية حاسوبية</span>
+          <p style="font-size: 0.75rem;">متخصص في تدريب نماذج فرز النفايات والكشف البصري.</p>
+        </div>
+        <!-- Member 4 -->
+        <div class="info-card glass" style="padding: 1.5rem;">
+          <div class="user-avatar" style="width: 60px; height: 60px; font-size: 1.5rem; margin: 0 auto 1rem; background: #ec4899;">لم</div>
+          <h3 style="font-size: 1.1rem; margin-bottom: 0.25rem;">أ. لمى المطيري</h3>
+          <span style="font-size: 0.75rem; color: #ec4899; font-weight: 700; display: block; margin-bottom: 0.5rem;">مصممة ومطورة واجهات UI/UX</span>
+          <p style="font-size: 0.75rem;">مختصة ببناء تجارب وتفاعلات التلعيب ورسم الخرائط التفاعلية.</p>
+        </div>
+        <!-- Member 5 -->
+        <div class="info-card glass" style="padding: 1.5rem;">
+          <div class="user-avatar" style="width: 60px; height: 60px; font-size: 1.5rem; margin: 0 auto 1rem; background: #eab308;">خد</div>
+          <h3 style="font-size: 1.1rem; margin-bottom: 0.25rem;">م. خالد الدوسري</h3>
+          <span style="font-size: 0.75rem; color: #eab308; font-weight: 700; display: block; margin-bottom: 0.5rem;">مهندس بنية تحتية وسحابية</span>
+          <p style="font-size: 0.75rem;">مسؤول عن تشفير وإدارة قواعد البيانات وربط المدارس.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="border-top: 1px solid var(--border-color); padding: 3rem 0; margin-top: 5rem; text-align: center; background: rgba(0,0,0,0.2);">
+      <div class="container">
+        <p style="font-size: 0.9rem; color: var(--text-main); font-weight: 700; margin-bottom: 1rem;">منصة نَفَس للاستدامة المدرسية الذكية &copy; 2026</p>
+        <div class="glass" style="padding: 1.25rem; max-width: 800px; margin: 0 auto; border: 1px solid var(--border-color); border-radius: 12px;">
+          <p style="font-size: 0.75rem; color: var(--text-muted); line-height: 1.6;">
+            <strong>تنبيه إخلاء مسؤولية النموذج الأولي:</strong> جميع مؤشرات الأداء والتقارير والتحليلات والخرائط وتوصيات الذكاء الاصطناعي هي بيانات محاكاة افتراضية لأغراض العرض التجريبي والتحكيم في الهواكاثون فقط. لا توجد أي أجهزة استشعار حقيقية أو مصادر بيانات خارجية متصلة بالمنصة حالياً.
+          </p>
+          <hr style="border: none; border-top: 1px solid var(--border-color); margin: 0.75rem 0;">
+          <p style="font-size: 0.75rem; color: var(--text-muted); line-height: 1.6;">
+            <strong>Prototype Disclaimer Notice:</strong> All metrics, reports, AI insights, charts, weather widgets, rankings, and recommendations are generated using simulated mock data for prototype demonstration purposes only. No real sensors or live external data sources are connected.
+          </p>
+        </div>
+      </div>
+    </footer>
+  </section>
+
+  <!-- ======================================================= -->
+  <!--                   AUTHENTICATION MODALS                 -->
+  <!-- ======================================================= -->
+  
+  <!-- Auth Modal (Login + Register tabs) -->
+  <div id="loginModal" class="modal-overlay">
+    <div class="modal-content glass auth-modal-wide">
+      <button class="modal-close" onclick="closeModal('loginModal')">&times;</button>
+
+      <!-- Tab Switcher -->
+      <div class="auth-tabs">
+        <button id="tabLoginBtn" class="auth-tab active" onclick="switchAuthTab('login')">
+          <i class="fas fa-sign-in-alt"></i>
+          <span data-i18n="login">تسجيل الدخول</span>
+        </button>
+        <button id="tabRegisterBtn" class="auth-tab" onclick="switchAuthTab('register')">
+          <i class="fas fa-user-plus"></i>
+          <span data-i18n="register">إنشاء حساب</span>
+        </button>
+      </div>
+
+      <!-- === LOGIN FORM === -->
+      <div id="loginFormPanel">
+        <div class="modal-header" style="margin-top: 1.25rem;">
+          <h2 data-i18n="login">تسجيل الدخول</h2>
+          <p data-i18n="appSlogan">نظام الذكاء الاصطناعي البيئي المدرسي</p>
+        </div>
+        <form id="loginForm">
+          <div class="form-group">
+            <label for="loginEmail" data-i18n="email">البريد الإلكتروني</label>
+            <div class="input-wrapper">
+              <i class="fas fa-envelope"></i>
+              <input type="email" id="loginEmail" class="form-control" required placeholder="user@nafas.edu">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="loginPassword" data-i18n="password">كلمة المرور</label>
+            <div class="input-wrapper">
+              <i class="fas fa-lock"></i>
+              <input type="password" id="loginPassword" class="form-control" required placeholder="••••••••">
+            </div>
+          </div>
+          <div id="loginErrorText" class="form-error"></div>
+          <button type="submit" class="btn btn-primary w-100" style="margin-top: 1rem;" data-i18n="loginBtn">دخول</button>
+        </form>
+        <div class="auth-demo-helper">
+          <p style="font-weight: 700; color: var(--primary);">حسابات تجريبية للمحاكاة (ديمو):</p>
+          <code onclick="quickFill('student@nafas.edu', 'student123')">طالب: student@nafas.edu / student123</code><br>
+          <code onclick="quickFill('teacher@nafas.edu', 'teacher123')">معلم: teacher@nafas.edu / teacher123</code><br>
+          <code onclick="quickFill('admin@nafas.edu', 'admin123')">مدير: admin@nafas.edu / admin123</code><br>
+          <code onclick="quickFill('staff@nafas.edu', 'staff123')">نظافة: staff@nafas.edu / staff123</code><br>
+          <code onclick="quickFill('newstudent@nafas.edu', 'temp123')">طالب جديد (تسجيل أول): newstudent@nafas.edu / temp123</code>
+        </div>
+      </div>
+
+      <!-- === REGISTER FORM === -->
+      <div id="registerFormPanel" style="display: none;">
+        <div class="modal-header" style="margin-top: 1.25rem;">
+          <h2 data-i18n="register">إنشاء حساب جديد</h2>
+          <p data-i18n="register_subtitle">للمديرين والمعلمين فقط — تسجيل الطلاب عبر المدير</p>
+        </div>
+        <form id="registerForm">
+          <div class="form-group">
+            <label for="regName" data-i18n="user_fullname">الاسم الكامل</label>
+            <div class="input-wrapper">
+              <i class="fas fa-user"></i>
+              <input type="text" id="regName" class="form-control" required placeholder="محمد العتيبي">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="regEmail" data-i18n="email">البريد الإلكتروني</label>
+            <div class="input-wrapper">
+              <i class="fas fa-envelope"></i>
+              <input type="email" id="regEmail" class="form-control" required placeholder="user@nafas.edu">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="regRole" data-i18n="user_role">الدور الوظيفي</label>
+            <select id="regRole" class="form-control select-control-styled">
+              <option value="role_admin" data-i18n="role_admin">مدير النظام</option>
+              <option value="role_teacher" selected data-i18n="role_teacher">معلم / معلمة</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="regPassword" data-i18n="password">كلمة المرور</label>
+            <div class="input-wrapper">
+              <i class="fas fa-lock"></i>
+              <input type="password" id="regPassword" class="form-control" required placeholder="••••••••" minlength="6">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="regConfirm" data-i18n="confirmPassword">تأكيد كلمة المرور</label>
+            <div class="input-wrapper">
+              <i class="fas fa-shield-halved"></i>
+              <input type="password" id="regConfirm" class="form-control" required placeholder="••••••••">
+            </div>
+          </div>
+          <div id="registerErrorText" class="form-error"></div>
+          <button type="submit" class="btn btn-primary w-100" style="margin-top: 1rem;" data-i18n="register_btn">
+            <i class="fas fa-user-plus"></i> إنشاء الحساب والدخول
+          </button>
+        </form>
+        <p class="register-note" data-i18n="register_note">
+          بإنشاء الحساب، ستدخل إلى المنصة فوراً دون الحاجة لموافقة إضافية.
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Password Reset Forced Screen Overlay -->
+  <div id="passwordResetOverlay" class="password-reset-overlay" style="display: none;">
+    <div class="modal-content glass">
+      <div class="modal-header">
+        <h2 data-i18n="firstLoginTitle">إعادة تعيين كلمة المرور للأمان</h2>
+        <p id="resetReasonDesc" data-i18n="firstLoginDesc">هذا هو تسجيل دخولك الأول. يجب عليك تعيين كلمة مرور شخصية جديدة للمتابعة.</p>
+      </div>
+      <form id="passwordResetForm">
+        <div class="form-group">
+          <label for="resetPassword" data-i18n="newPassword">كلمة المرور الجديدة</label>
+          <div class="input-wrapper">
+            <i class="fas fa-lock"></i>
+            <input type="password" id="resetPassword" class="form-control" required placeholder="••••••••">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="resetConfirmPassword" data-i18n="confirmPassword">تأكيد كلمة المرور الجديدة</label>
+          <div class="input-wrapper">
+            <i class="fas fa-shield-halved"></i>
+            <input type="password" id="resetConfirmPassword" class="form-control" required placeholder="••••••••">
+          </div>
+        </div>
+        <div id="resetErrorText" class="form-error"></div>
+        <button type="submit" class="btn btn-primary w-100" data-i18n="changePassword">تغيير كلمة المرور</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Load Modules Scripts -->
+  <script src="js/i18n.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/ai.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>

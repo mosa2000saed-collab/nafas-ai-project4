@@ -1,0 +1,1356 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>نَفَس | لوحة التحكم البيئية المدرسية</title>
+  
+  <!-- Google Fonts for Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Tajawal:wght@300;400;500;700;800&family=Outfit:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Toast Notification Overlay -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- ======================================================= -->
+  <!--               SKELETON SHIMMER LOADER BLOCK             -->
+  <!-- ======================================================= -->
+  <div id="skeletonLoader" class="modal-overlay active" style="background: var(--bg-app); z-index: 9999;">
+    <div style="width: 80%; max-width: 1000px; display: flex; flex-direction: column; gap: 1.5rem;">
+      <div class="skeleton-active" style="height: 50px; border-radius: 12px; width: 100%;"></div>
+      <div style="display: grid; grid-template-columns: 260px 1fr; gap: 1.5rem; height: 500px;">
+        <div class="skeleton-active" style="border-radius: 16px; height: 100%;"></div>
+        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+          <div class="skeleton-active" style="height: 120px; border-radius: 16px;"></div>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; flex: 1;">
+            <div class="skeleton-active" style="border-radius: 16px;"></div>
+            <div class="skeleton-active" style="border-radius: 16px;"></div>
+            <div class="skeleton-active" style="border-radius: 16px;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================= -->
+  <!--                      MAIN APP DASHBOARD                 -->
+  <!-- ======================================================= -->
+  <section id="dashboardSection" class="dashboard-wrapper">
+    <!-- Sidebar Navigation -->
+    <aside id="sidebar" class="sidebar glass">
+      <div class="sidebar-brand">
+        <a href="index.html" class="logo-section">
+          <i class="fas fa-leaf"></i>
+          <div>
+            <span data-i18n="appName">نَفَس</span>
+            <div class="app-sub-text" data-i18n="appName">الاستدامة المدرسية</div>
+          </div>
+        </a>
+      </div>
+      
+      <ul class="sidebar-menu">
+        <li class="sidebar-menu-item active" data-panel="overview">
+          <a href="#overview">
+            <i class="fas fa-chart-pie"></i>
+            <span data-i18n="nav_dashboard">الرئيسية</span>
+          </a>
+        </li>
+        <li class="sidebar-menu-item" data-panel="twin">
+          <a href="#twin">
+            <i class="fas fa-cube"></i>
+            <span data-i18n="nav_twin">التوأم الرقمي</span>
+          </a>
+        </li>
+        <li class="sidebar-menu-item" data-panel="aivision">
+          <a href="#aivision">
+            <i class="fas fa-brain"></i>
+            <span data-i18n="nav_aivision">الرؤية الحاسوبية</span>
+          </a>
+        </li>
+        <li class="sidebar-menu-item" data-panel="tasks">
+          <a href="#tasks">
+            <i class="fas fa-list-check"></i>
+            <span data-i18n="nav_tasks">جدول المهام</span>
+          </a>
+        </li>
+        <li class="sidebar-menu-item" data-panel="dailyreports">
+          <a href="#dailyreports">
+            <i class="fas fa-clipboard-question"></i>
+            <span data-i18n="nav_dailyreports">التقارير اليومية</span>
+          </a>
+        </li>
+        <li class="sidebar-menu-item" data-panel="calendar">
+          <a href="#calendar">
+            <i class="fas fa-calendar-days"></i>
+            <span data-i18n="nav_calendar">التقويم البيئي</span>
+          </a>
+        </li>
+        <li class="sidebar-menu-item" data-panel="leaderboard">
+          <a href="#leaderboard">
+            <i class="fas fa-trophy"></i>
+            <span data-i18n="nav_leaderboard">المتصدرين</span>
+          </a>
+        </li>
+        <li class="sidebar-menu-item" data-panel="analytics" data-role-view="role_admin role_teacher">
+          <a href="#analytics">
+            <i class="fas fa-chart-line"></i>
+            <span data-i18n="nav_analytics">التحليلات والتقارير</span>
+          </a>
+        </li>
+        <li class="sidebar-menu-item" data-panel="recommendations" data-role-view="role_admin role_teacher">
+          <a href="#recommendations">
+            <i class="fas fa-wand-magic-sparkles"></i>
+            <span data-i18n="nav_recommendations">توصيات الذكاء الاصطناعي</span>
+          </a>
+        </li>
+        <li class="sidebar-menu-item" data-panel="history">
+          <a href="#history">
+            <i class="fas fa-history"></i>
+            <span data-i18n="nav_history">سجل التدقيق</span>
+          </a>
+        </li>
+        <li class="sidebar-menu-item" data-panel="users" data-role-view="role_admin">
+          <a href="#users">
+            <i class="fas fa-user-gear"></i>
+            <span data-i18n="nav_users">إدارة المستخدمين</span>
+          </a>
+        </li>
+        <li class="sidebar-menu-item" data-panel="profile">
+          <a href="#profile">
+            <i class="fas fa-id-card"></i>
+            <span data-i18n="nav_profile">الملف الشخصي</span>
+          </a>
+        </li>
+        <li class="sidebar-menu-item" data-panel="announcements" data-role-view="role_admin">
+          <a href="#announcements">
+            <i class="fas fa-bullhorn"></i>
+            <span data-i18n="nav_announcements">الإعلانات</span>
+          </a>
+        </li>
+        <li class="sidebar-menu-item" data-panel="notifications">
+          <a href="#notifications">
+            <i class="fas fa-bell"></i>
+            <span data-i18n="nav_notifications">الإشعارات</span>
+          </a>
+        </li>
+        <li class="sidebar-menu-item" data-panel="settings">
+          <a href="#settings">
+            <i class="fas fa-sliders"></i>
+            <span data-i18n="nav_settings">التفضيلات</span>
+          </a>
+        </li>
+      </ul>
+
+      <!-- User Session Block in Sidebar -->
+      <div class="sidebar-user">
+        <div class="user-avatar-info">
+          <div id="userAvatar" class="user-avatar">U</div>
+          <div class="user-details">
+            <h4 id="userDisplayName">زائر</h4>
+            <span id="userDisplayRole">طالب</span>
+          </div>
+        </div>
+        <button class="btn-icon logout-btn" onclick="logout()" title="تسجيل الخروج">
+          <i class="fas fa-power-off"></i>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content Panel Router Viewport -->
+    <main class="dashboard-main">
+      <!-- Top Navbar Inside Dashboard -->
+      <nav class="dash-nav glass">
+        <div class="dash-title-section">
+          <button id="mobileMenuToggle" class="btn-icon" aria-label="Open Navigation">
+            <i class="fas fa-bars"></i>
+          </button>
+          <h2 id="currentPanelTitle" data-i18n="nav_dashboard">الرئيسية</h2>
+        </div>
+        <div class="dash-controls">
+          <button class="btn-icon theme-toggle-btn" aria-label="Toggle Theme">
+            <i class="fas fa-sun"></i>
+          </button>
+          <button class="btn btn-secondary lang-toggle-btn">
+            <span>English</span>
+          </button>
+          <!-- Notification Bell Dropdown -->
+          <div class="nav-notifications-bell-wrapper">
+            <button id="btnNavNotifications" class="btn-icon">
+              <i class="fas fa-bell"></i>
+              <span id="notificationCount" class="notification-badge-count" style="display: none;">0</span>
+            </button>
+            <div id="notificationsDropdown" class="notifications-dropdown-menu">
+              <div class="notifications-dropdown-header">
+                <span data-i18n="nav_notifications">الإشعارات</span>
+                <span id="btnClearNotifications" style="color: var(--primary); font-size: 0.75rem; cursor: pointer;">تصفية الكل</span>
+              </div>
+              <div id="notificationsList" class="notifications-list-container">
+                <!-- Notifications injected here -->
+                <div class="detail-placeholder" style="min-height: 100px; padding: 1rem;">
+                  <p style="font-size: 0.8rem; color: var(--text-muted);">لا توجد إشعارات حالياً</p>
+                </div>
+              </div>
+              <div class="notifications-dropdown-footer" onclick="switchPanel('notifications')">عرض كافة التنبيهات</div>
+            </div>
+          </div>
+          <button class="btn btn-secondary logout-btn" onclick="logout()">
+            <i class="fas fa-sign-out-alt"></i> <span data-i18n="logout">تسجيل الخروج</span>
+          </button>
+        </div>
+      </nav>
+
+      <div class="dash-content">
+        <!-- ============================================== -->
+        <!-- PANEL 1: DASHBOARD OVERVIEW                    -->
+        <!-- ============================================== -->
+        <div id="panel-overview" class="dash-panel active">
+          
+          <!-- Welcome Banner Section -->
+          <div id="welcomeBanner" class="welcome-banner-card">
+            <!-- Dynamic welcome message will be injected here -->
+          </div>
+
+          <!-- Riyadh Weather Widget -->
+          <div class="weather-widget-card">
+            <div class="weather-info-main">
+              <i class="fas fa-cloud-sun" style="font-size: 2.5rem; color: #f59e0b;"></i>
+              <div>
+                <h3 data-i18n="weather_title">طقس الرياض اليوم</h3>
+                <span class="weather-temp-num">38°C</span>
+              </div>
+            </div>
+            <div class="weather-details-grid">
+              <div class="weather-detail-item">
+                <small data-i18n="weather_aqi">مؤشر جودة الهواء (AQI)</small>
+                <span class="val" style="color: var(--primary);">45 - ممتاز</span>
+              </div>
+              <div class="weather-detail-item">
+                <small data-i18n="weather_humidity">معدل الرطوبة</small>
+                <span class="val">15%</span>
+              </div>
+              <div class="weather-detail-item">
+                <small data-i18n="weather_rec">التوصية البيئية</small>
+                <span class="val" style="font-size: 0.75rem;" data-i18n="weather_rec_val">مثالي لبدء التشجير!</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Overview Top Metrics Widgets -->
+          <div class="metrics-grid">
+            <!-- Metric 1: Sustainability Score -->
+            <div class="metric-card glass">
+              <h3 data-i18n="dash_sustainability_score">مؤشر نَفَس للاستدامة</h3>
+              <div class="score-display-wrapper">
+                <div class="radial-score-container">
+                  <svg class="radial-svg" viewBox="0 0 100 100">
+                    <circle class="radial-bg" cx="50" cy="50" r="45"></circle>
+                    <circle id="scoreProgressCircle" class="radial-progress" cx="50" cy="50" r="45"></circle>
+                  </svg>
+                  <span id="scoreTextValue" class="radial-text">0</span>
+                </div>
+                <div>
+                  <span id="scoreLevelBadge" class="score-level-badge critical">جاري القياس...</span>
+                  <p class="score-sub-explanation" style="font-size: 0.7rem; color: var(--text-muted); margin-top: 5px;">مستند إلى تقارير النظافة وسرعة التجاوب والفرز</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Metric 2: Cleanliness Stars -->
+            <div class="metric-card glass">
+              <h3 data-i18n="dash_cleanliness_score">معدل نظافة المدرسة الكلي</h3>
+              <div style="display: flex; align-items: baseline; gap: 5px;">
+                <span id="cleanlinessAverageValue" class="huge-number" style="font-size: 3rem; font-weight: 800; color: var(--primary);">0.0</span>
+                <span class="max-star" style="color: var(--text-muted); font-size: 1rem;">/5.0</span>
+              </div>
+              <div id="cleanlinessStarsContainer" class="stars-stars-wrapper" style="color: #f59e0b; font-size: 1.25rem; margin-top: 10px;">
+                <!-- Stars dynamically injected -->
+              </div>
+            </div>
+
+            <!-- Metric 3: Worst Area & Dominant Trash -->
+            <div class="metric-card glass double-metric">
+              <div class="metric-sub-item">
+                <h3 data-i18n="dash_polluted_area">المنطقة الأكثر تلوثاً</h3>
+                <div class="metric-alert-value critical" style="color: var(--color-critical); font-weight: 700;">
+                  <i class="fas fa-triangle-exclamation"></i>
+                  <span id="mostPollutedAreaText" data-i18n="area_yard">ساحة المدرسة</span>
+                </div>
+              </div>
+              <div class="metric-sub-item" style="border-top: 1px solid var(--border-color); padding-top: 0.75rem; margin-top: 0.75rem;">
+                <h3 data-i18n="dash_waste_type">نوع النفايات الأكثر شيوعاً</h3>
+                <div class="metric-alert-value warning" style="color: var(--color-good); font-weight: 700;">
+                  <i class="fas fa-trash-can"></i>
+                  <span id="dominantWasteText" data-i18n="trash_plastic">بلاستيك</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Twin & AI Insights Row (60/40 Split Layout) -->
+          <div class="twin-insights-row">
+            <!-- Left: Digital Twin Viewport Container (60%) -->
+            <div class="card-wrapper glass" style="padding: 1.5rem; display: flex; flex-direction: column;">
+              <div class="card-header" style="margin-bottom: 1rem;">
+                <h3 style="font-size: 1rem; font-weight: 800; display: flex; align-items: center; gap: 0.5rem;">
+                  <i class="fas fa-cube text-primary"></i> <span data-i18n="nav_twin">المخطط التفاعلي للتوأم الرقمي للمدرسة</span>
+                </h3>
+              </div>
+              <!-- Preview Viewport -->
+              <div id="twinMiniMapWrapper" style="flex: 1; min-height: 250px; background: rgba(0,0,0,0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid var(--border-color);">
+                <!-- Animated isometric twin school building representation -->
+              </div>
+            </div>
+
+            <!-- Right: AI Insights (40%) -->
+            <div class="card-wrapper glass" style="padding: 1.5rem;">
+              <div class="card-header" style="margin-bottom: 1rem;">
+                <h3 style="font-size: 1rem; font-weight: 800; display: flex; align-items: center; gap: 0.5rem;">
+                  <i class="fas fa-wand-magic-sparkles text-primary"></i> <span>مؤشرات تحليلات الاستدامة الذكية AI</span>
+                </h3>
+              </div>
+              <div id="aiInsightsList" class="insights-container">
+                <!-- Insights progress bars dynamically injected -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Impact Statistics and National Goals Row -->
+          <div class="impact-goals-row">
+            <!-- Impact Statistics Widget -->
+            <div class="card-wrapper glass" style="padding: 1.5rem;">
+              <h3 style="font-size: 1rem; font-weight: 800; margin-bottom: 1rem;" data-i18n="area_monitoring_title">مؤشرات الأثر البيئي الكلية (المحاكاة)</h3>
+              <div class="impact-grid">
+                <div class="impact-item-card">
+                  <i class="fas fa-cloud-arrow-down impact-icon"></i>
+                  <div class="impact-val" id="impactCo2">240 kg</div>
+                  <div class="impact-label">تقليص انبعاثات CO2</div>
+                </div>
+                <div class="impact-item-card">
+                  <i class="fas fa-droplet impact-icon" style="color: #3b82f6;"></i>
+                  <div class="impact-val" id="impactWater" style="color: #3b82f6;">1,200 L</div>
+                  <div class="impact-label">توفير هدر المياه</div>
+                </div>
+                <div class="impact-item-card">
+                  <i class="fas fa-bolt impact-icon" style="color: #f59e0b;"></i>
+                  <div class="impact-val" id="impactEnergy" style="color: #f59e0b;">480 kWh</div>
+                  <div class="impact-label">ترشيد الكهرباء</div>
+                </div>
+                <div class="impact-item-card">
+                  <i class="fas fa-recycle impact-icon" style="color: #10b981;"></i>
+                  <div class="impact-val" id="impactRecycling" style="color: #10b981;">72%</div>
+                  <div class="impact-label">معدل إعادة التدوير</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- National Goals Saudi Vision 2030 Card -->
+            <div class="national-goals-card">
+              <div class="national-goals-title">
+                <i class="fas fa-tree"></i> <span>رؤية السعودية 2030 البيئية</span>
+              </div>
+              <p class="national-goals-desc">
+                تتماشى منصة "نَفَس" بالكامل مع مبادرة السعودية الخضراء ومشروع الرياض الخضراء من خلال تشجيع منسوبي المدارس على فرز النفايات من المصدر، وتوفير الموارد (المياه والطاقة)، وتوسيع المساحات المشجرة بالمدرسة لرفع جودة الحياة وتخفيض الانبعاثات الكربونية.
+              </p>
+              <div style="margin-top: 1rem; display: flex; align-items: center; justify-content: space-between; font-size: 0.75rem; color: #047857; font-weight: 700;">
+                <span>مبادرة الرياض الخضراء 🌳</span>
+                <span>الحياد الصفري 2060 🇸🇦</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Secondary Widgets Row: Charts + Student Challenge & Top Classes -->
+          <div class="grid-2">
+            <!-- Charts Row -->
+            <div class="card-wrapper glass" style="padding: 1.5rem;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+                <h3 style="font-size: 1rem; font-weight: 800;" data-i18n="chart_cleanliness_trends">منحنى مستوى النظافة</h3>
+                <i class="fas fa-chart-line text-primary"></i>
+              </div>
+              <div style="height: 200px;">
+                <canvas id="overviewTrendsChart"></canvas>
+              </div>
+            </div>
+
+            <!-- Student Challenge and Top Classes Widget -->
+            <div class="card-wrapper glass" style="padding: 1.5rem;">
+              <h3 style="font-size: 1rem; font-weight: 800; margin-bottom: 1rem;">التحديات النشطة وترتيب الفصول المتصدرة</h3>
+              
+              <!-- Challenge Banner -->
+              <div style="padding: 1rem; border-radius: 12px; background: linear-gradient(135deg, rgba(139, 92, 246, 0.15) 0%, rgba(139, 92, 246, 0.05) 100%); border: 1px solid rgba(139, 92, 246, 0.2); display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <div>
+                  <h4 style="font-weight: 700; font-size: 0.85rem; color: #8b5cf6;"><i class="fas fa-fire"></i> تحدي هذا الأسبوع: الأقل فرزاً عشوائياً</h4>
+                  <small style="font-size: 0.75rem; color: var(--text-muted);">الفصل الذي يسجل أقل نسبة تلوث في الصور يحصل على +100 نقطة إضافية لكل طالب!</small>
+                </div>
+                <span class="pill-status pending" style="background: rgba(139, 92, 246, 0.2); color: #8b5cf6;">نشط</span>
+              </div>
+
+              <!-- Top Classes List -->
+              <div id="topClassesMiniList">
+                <!-- Dynamic dynamic classes rankings injected -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- PANEL 2: DETAILED DIGITAL TWIN                 -->
+        <!-- ============================================== -->
+        <div id="panel-twin" class="dash-panel">
+          <div class="twin-insights-row" style="grid-template-columns: 1.4fr 0.6fr;">
+            <!-- School twin viewport rendering -->
+            <div class="card-wrapper glass" style="padding: 1.5rem; position: relative;">
+              <div class="card-header" style="margin-bottom: 1rem;">
+                <h3 data-i18n="heatmap_title">المخطط التفاعلي ثلاثي الأبعاد للمباني</h3>
+                <p class="map-helper-desc" data-i18n="click_to_view" style="font-size: 0.75rem; color: var(--text-muted);">اختر مبنى لرصد التقييمات ومستويات الاستدامة.</p>
+              </div>
+              
+              <!-- Core Floorplan viewport -->
+              <div id="twinFullViewportWrapper" style="height: 420px; border-radius: 12px; border: 1px solid var(--border-color); overflow: hidden; background: rgba(0,0,0,0.15); display: flex; align-items: center; justify-content: center; position: relative;">
+                <!-- Full dynamic twin SVG goes here -->
+              </div>
+            </div>
+
+            <!-- Right Detail Sidebar Drawer -->
+            <div class="card-wrapper glass" style="padding: 1.5rem;" id="twinSidebarDetailsPanel">
+              <div class="detail-placeholder" id="twinPlaceholderText">
+                <i class="fas fa-map-location-dot" style="font-size: 3rem; color: var(--text-muted); margin-bottom: 1rem; display: block; text-align: center;"></i>
+                <p style="text-align: center;" data-i18n="click_to_view">اختر منطقة من الخارطة لاستعراض تقاريرها المباشرة</p>
+              </div>
+              <div class="detail-content" id="twinDetailsContent" style="display: none;">
+                <h3 id="twinSelectedBuildingName" style="font-weight: 800; font-size: 1.25rem; color: var(--primary);">المبنى الرئيسي</h3>
+                <div style="display: flex; gap: 0.5rem; margin: 0.5rem 0 1rem 0;">
+                  <span id="twinSelectedBuildingStatus" class="score-level-badge clean">نظيف</span>
+                  <span id="twinSelectedBuildingAvg" style="font-weight: 700; color: #f59e0b;">4.8★</span>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                  <div style="padding: 0.75rem; background: var(--bg-input); border-radius: 10px; text-align: center; border: 1px solid var(--border-color);">
+                    <small style="color: var(--text-muted);" data-i18n="col_reports_count">التقارير الإجمالية</small>
+                    <h4 id="twinSelectedReportsCount" style="font-size: 1.25rem; font-weight: 800; margin-top: 0.25rem;">0</h4>
+                  </div>
+                  <div style="padding: 0.75rem; background: var(--bg-input); border-radius: 10px; text-align: center; border: 1px solid var(--border-color);">
+                    <small style="color: var(--text-muted);" data-i18n="metric_pollution">نسبة التلوث</small>
+                    <h4 id="twinSelectedPollutionPercent" style="font-size: 1.25rem; font-weight: 800; margin-top: 0.25rem;">0%</h4>
+                  </div>
+                </div>
+
+                <h4 style="font-size: 0.85rem; font-weight: 700; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; margin-bottom: 0.75rem;">الميزات المستدامة المجهزة:</h4>
+                <ul id="twinSelectedFeaturesList" style="list-style: none; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.5rem;">
+                  <!-- Dynamic features list -->
+                </ul>
+
+                <h4 style="font-size: 0.85rem; font-weight: 700; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; margin-bottom: 0.75rem;" data-i18n="latest_reports">آخر البلاغات النشطة</h4>
+                <ul id="twinSelectedReportsList" style="list-style: none; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.8rem;">
+                  <!-- Injected via JS -->
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- PANEL 3: SCAN & UPLOAD AI MODULE               -->
+        <!-- ============================================== -->
+        <div id="panel-aivision" class="dash-panel">
+          <div class="aivision-split-container">
+            <!-- Left Upload Controls -->
+            <div class="card-wrapper glass" style="padding: 1.5rem;">
+              <h3 data-i18n="upload_title">ماسح الذكاء الاصطناعي للمرافق</h3>
+              <p class="card-desc" style="font-size: 0.8rem; color: var(--text-muted);" data-i18n="upload_desc">قم بالتقاط صورة للمرفق أو استخدام أحد النماذج المسبقة لاختبار دقة الذكاء الاصطناعي.</p>
+              
+              <!-- Form Control Inputs -->
+              <div class="form-group" style="margin-top: 1.5rem;">
+                <label for="uploadAreaSelect" data-i18n="select_area_label">اختر مرفق المدرسة:</label>
+                <select id="uploadAreaSelect" class="form-control select-control-styled">
+                  <option value="area_yard" data-i18n="area_yard">ساحة المدرسة</option>
+                  <option value="area_classrooms" data-i18n="area_classrooms">الفصول الدراسية</option>
+                  <option value="area_cafeteria" data-i18n="area_cafeteria">المقصف المدرسي</option>
+                  <option value="area_hallways" data-i18n="area_hallways">الممرات</option>
+                  <option value="area_restrooms" data-i18n="area_restrooms">دورات المياه</option>
+                </select>
+              </div>
+
+              <!-- Preset Simulator Images selectors -->
+              <div class="form-group">
+                <label style="display: block; font-weight: 700; margin-bottom: 0.5rem;">نماذج محاكاة مسبقة للاختبار السريع:</label>
+                <div class="preset-buttons-row" style="display: flex; gap: 0.5rem;">
+                  <button class="btn btn-secondary btn-sm" onclick="selectPresetMock('yard')">الساحة (نظيف)</button>
+                  <button class="btn btn-secondary btn-sm" onclick="selectPresetMock('cafeteria')">المقصف (ملوث)</button>
+                  <button class="btn btn-secondary btn-sm" onclick="selectPresetMock('restrooms')">الحمامات (متوسط)</button>
+                </div>
+              </div>
+
+              <!-- Verification Check Option (to demo Anti-Cheat & Hoax feature) -->
+              <div class="form-group" style="background: rgba(16, 185, 129, 0.05); padding: 0.75rem; border-radius: 8px; border: 1px dashed var(--border-color); margin-top: 1.5rem;">
+                <label for="toggleAntiCheatSimulation" style="cursor: pointer; display: flex; align-items: center; justify-content: space-between; font-weight: 600; font-size: 0.8rem;">
+                  <span style="display: flex; align-items: center; gap: 0.5rem;">
+                    <input type="checkbox" id="toggleAntiCheatSimulation" style="width: 18px; height: 18px; cursor: pointer;">
+                    <span>محاكاة رفع صورة مفبركة/غش (سيارة أو قطة) لتجربة كاشف الغش</span>
+                  </span>
+                  <i class="fas fa-shield-halved text-primary" style="font-size: 1.25rem;"></i>
+                </label>
+              </div>
+
+              <!-- Real image file input simulator -->
+              <div class="form-group" style="border-top: 1px dashed var(--border-color); padding-top: 1.5rem; margin-top: 1.5rem;">
+                <label data-i18n="upload_btn">تحميل ملف صورة</label>
+                <div class="custom-file-upload" style="border: 2px dashed var(--border-color); border-radius: 12px; padding: 2rem; text-align: center; cursor: pointer; position: relative;">
+                  <i class="fas fa-cloud-arrow-up" style="font-size: 2.2rem; color: var(--text-muted); margin-bottom: 0.5rem; display: block;"></i>
+                  <input type="file" id="imageFileInput" accept="image/*" style="opacity: 0; position: absolute; top: 0; left: 0; width: 100%; height: 100%; cursor: pointer;">
+                  <span id="fileNameLabel" style="font-weight: 600; font-size: 0.85rem;">اسحب ملف صورة أو انقر للاختيار</span>
+                </div>
+              </div>
+
+              <!-- Manual notes & Observations -->
+              <div class="form-group">
+                <label for="manualNotesInput" data-i18n="notes_placeholder">ملاحظات إضافية:</label>
+                <textarea id="manualNotesInput" class="form-control" rows="3" placeholder="سجل هنا الطلاب المشاركين في رصد الأوساخ..."></textarea>
+              </div>
+
+              <button id="btnRunAiAnalysis" class="btn btn-primary w-100 btn-lg" data-i18n="analyze_btn">تحليل بواسطة AI</button>
+            </div>
+
+            <!-- Right Canvas Viewer & AI Output -->
+            <div class="card-wrapper glass flex-center-col" style="padding: 1.5rem; min-height: 400px; display: flex; flex-direction: column; justify-content: center; position: relative;">
+              <h3 data-i18n="detection_results" style="margin-bottom: 1rem;">مخرجات تحليل الذكاء الاصطناعي</h3>
+              
+              <!-- Loader State -->
+              <div id="aiScanningLoader" class="ai-loader-container" style="display: none; position: absolute; inset: 0; background: var(--bg-card); z-index: 100; flex-direction: column; align-items: center; justify-content: center; border-radius: var(--radius-lg);">
+                <div class="scan-animation-laser"></div>
+                <i class="fas fa-spinner fa-spin text-primary" style="font-size: 2.5rem; margin-bottom: 1rem;"></i>
+                <h4 id="scanningLoaderText" data-i18n="relevance_checking">جاري التحقق من مصداقية وسياق الصورة...</h4>
+              </div>
+
+              <!-- Before/After slider & Warning overlays -->
+              <div id="canvasViewportContainer" style="width: 100%; max-width: 400px; height: 300px; position: relative; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.15); border-radius: 12px; border: 1px solid var(--border-color); overflow: hidden; margin: 0 auto;">
+                
+                <!-- Bounding Box Canvas -->
+                <canvas id="aiCanvas" width="400" height="300" style="display: none; width: 100%; height: 100%; object-fit: cover;"></canvas>
+
+                <!-- Before/After slider layout (Will be shown for cafeteria dirtypreset scan) -->
+                <div id="beforeAfterSlider" class="image-slider-container" style="display: none; width: 100%; height: 100%;">
+                  <!-- Before image (Dirty) -->
+                  <div class="image-slider-before" id="sliderBeforeImgWrapper">
+                    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='300'><rect width='400' height='300' fill='%237f1d1d'/><text x='50%25' y='50%25' fill='white' font-size='20' text-anchor='middle'>[ BEFORE / قبل التنظيف ]</text></svg>">
+                  </div>
+                  <!-- After image (Cleaned placeholder) -->
+                  <div class="image-slider-after" style="width: 100%; height: 100%;">
+                    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='300'><rect width='400' height='300' fill='%23064e3b'/><text x='50%25' y='50%25' fill='white' font-size='20' text-anchor='middle'>[ AFTER / بعد التنظيف ]</text></svg>">
+                  </div>
+                  <!-- Range Slider Input -->
+                  <input type="range" min="0" max="100" value="50" class="image-slider-range" id="imageSliderRangeController">
+                </div>
+
+                <!-- Empty placeholder -->
+                <div id="emptyCanvasPlaceholder" style="text-align: center; padding: 2rem; color: var(--text-muted);">
+                  <i class="fas fa-camera-retro" style="font-size: 3rem; margin-bottom: 1rem; display: block;"></i>
+                  <p data-i18n="upload_desc" style="font-size: 0.85rem;">ارفع صورة أو اختر نموذجاً، ثم اضغط 'تحليل بواسطة AI' لبدء الكشف البصري</p>
+                </div>
+              </div>
+
+              <!-- Hoax Warnings Alert Panel -->
+              <div id="aiVisionHoaxWarning" class="form-error" style="background: rgba(239, 68, 68, 0.1); border: 1px solid var(--color-critical); padding: 0.75rem; border-radius: 8px; margin-top: 1rem; text-align: center; font-weight: 700; width: 100%; display: none;">
+                <i class="fas fa-triangle-exclamation"></i> <span data-i18n="aivision_hoax_detected">تم كشف صورة مفبركة! لن يتم توليد تقرير.</span>
+              </div>
+
+              <!-- AI Output Metrics Details -->
+              <div id="aiAnalysisOutputPanel" class="w-100" style="display: none; margin-top: 1.5rem;">
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; text-align: center; margin-bottom: 1rem;">
+                  <div style="padding: 0.5rem; background: var(--bg-input); border-radius: 8px; border: 1px solid var(--border-color);">
+                    <small style="font-size: 0.7rem; color: var(--text-muted);" data-i18n="metric_pollution">نسبة التلوث</small>
+                    <h4 id="outputPollutionPercent" style="font-weight: 800; font-size: 1.1rem; color: var(--primary);">0%</h4>
+                  </div>
+                  <div style="padding: 0.5rem; background: var(--bg-input); border-radius: 8px; border: 1px solid var(--border-color);">
+                    <small style="font-size: 0.7rem; color: var(--text-muted);" data-i18n="metric_density">الكثافة</small>
+                    <h4 id="outputDensityLevel" style="font-weight: 800; font-size: 1.1rem;">Low</h4>
+                  </div>
+                  <div style="padding: 0.5rem; background: var(--bg-input); border-radius: 8px; border: 1px solid var(--border-color);">
+                    <small style="font-size: 0.7rem; color: var(--text-muted);" data-i18n="metric_rating">التقييم</small>
+                    <h4 id="outputCleanlinessRating" style="font-weight: 800; font-size: 1.1rem; color: #f59e0b;">5.0★</h4>
+                  </div>
+                  <div style="padding: 0.5rem; background: var(--bg-input); border-radius: 8px; border: 1px solid var(--border-color);">
+                    <small style="font-size: 0.7rem; color: var(--text-muted);" data-i18n="metric_confidence">دقة الثقة</small>
+                    <h4 id="outputConfidence" style="font-weight: 800; font-size: 1.1rem;">0%</h4>
+                  </div>
+                </div>
+
+                <div class="objects-list-wrapper" style="margin-bottom: 1rem;">
+                  <h4 data-i18n="metric_objects" style="font-size: 0.85rem; font-weight: 700; margin-bottom: 0.5rem;">العناصر المكتشفة:</h4>
+                  <div id="outputDetectedObjectsTags" style="display: flex; flex-wrap: wrap; gap: 0.35rem;">
+                    <!-- Dynamic tags -->
+                  </div>
+                </div>
+
+                <!-- Auto-Task creation panel for real pollution -->
+                <div id="aivisionAutoTaskPanel" style="display: none; padding: 0.75rem; background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(245, 158, 11, 0.1) 100%); border: 1px solid var(--border-color); border-radius: 8px; margin-bottom: 1rem; align-items: center; justify-content: space-between;">
+                  <div>
+                    <h5 style="font-weight: 700; font-size: 0.8rem;" data-i18n="aivision_create_task">إنشاء مهمة تنظيف؟</h5>
+                    <small style="font-size: 0.7rem; color: var(--text-muted);">سيتم جدولة مهمة تنظيف فورية وتنبيه فريق العمل المناوب.</small>
+                  </div>
+                  <button class="btn btn-primary btn-sm" id="btnAiVisionAutoTaskTrigger" data-i18n="aivision_create_task_btn">إنشاء مهمة</button>
+                </div>
+
+                <button id="btnSaveAiReport" class="btn btn-primary w-100" data-i18n="save_report_btn">حفظ التقرير لقاعدة البيانات</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- PANEL 4: TASKS CHECKLIST                       -->
+        <!-- ============================================== -->
+        <div id="panel-tasks" class="dash-panel">
+          <div class="card-wrapper glass" style="padding: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+              <div>
+                <h3 data-i18n="nav_tasks" style="font-weight: 800;">جدول المهام ومسؤوليات النظافة</h3>
+                <p style="font-size: 0.8rem; color: var(--text-muted);">قائمة المهام اليومية الموزعة على فرق النظافة والصيانة.</p>
+              </div>
+              <div style="display: flex; gap: 0.5rem; align-items: center;">
+                <label for="taskFilterSelect" style="font-size: 0.8rem; font-weight: 700;">تصفية المهام:</label>
+                <select id="taskFilterSelect" class="form-control select-control-styled btn-sm" style="width: 150px;">
+                  <option value="all">كل المهام</option>
+                  <option value="pending">قيد الانتظار</option>
+                  <option value="completed">مكتملة</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Task insertion form for Teacher/Admin -->
+            <div id="taskCreationFormBlock" style="display: none; padding: 1.25rem; border-radius: 12px; background: var(--bg-input); border: 1px solid var(--border-color); margin-bottom: 1.5rem;">
+              <h4 style="font-size: 0.9rem; font-weight: 700; margin-bottom: 1rem;">إضافة مهمة جديدة عاجلة</h4>
+              <form id="taskCreationForm" style="display: grid; grid-template-columns: 1.5fr 1fr 1fr 100px; gap: 1rem; align-items: end;">
+                <div class="form-group" style="margin-bottom: 0;">
+                  <label for="taskInputTitle" style="font-size: 0.75rem;">عنوان المهمة</label>
+                  <input type="text" id="taskInputTitle" class="form-control btn-sm" required placeholder="تنظيف المرفق المتروك...">
+                </div>
+                <div class="form-group" style="margin-bottom: 0;">
+                  <label for="taskInputArea" style="font-size: 0.75rem;">مرفق المدرسة</label>
+                  <select id="taskInputArea" class="form-control select-control-styled btn-sm">
+                    <option value="area_yard">ساحة المدرسة</option>
+                    <option value="area_classrooms">الفصول الدراسية</option>
+                    <option value="area_cafeteria">المقصف المدرسي</option>
+                    <option value="area_hallways">الممرات</option>
+                    <option value="area_restrooms">دورات المياه</option>
+                  </select>
+                </div>
+                <div class="form-group" style="margin-bottom: 0;">
+                  <label for="taskInputAssignee" style="font-size: 0.75rem;">التعيين للموظف</label>
+                  <select id="taskInputAssignee" class="form-control select-control-styled btn-sm">
+                    <!-- Loaded dynamically via js -->
+                  </select>
+                </div>
+                <button type="submit" class="btn btn-primary btn-sm" style="height: 38px; width: 100%;">إدراج</button>
+              </form>
+            </div>
+
+            <!-- Table or Checklist content -->
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th style="width: 50px;"></th>
+                    <th data-i18n="appName">المهمة</th>
+                    <th data-i18n="log_area">الموقع</th>
+                    <th>المسؤول (التعيين)</th>
+                    <th data-i18n="rec_priority">الأولوية</th>
+                    <th data-i18n="rec_status">الحالة</th>
+                    <th>الإجراءات</th>
+                  </tr>
+                </thead>
+                <tbody id="tasksTableBody">
+                  <!-- Dynamic tasks checklist rows injected -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- PANEL 5: DAILY REPORTS WITH SPLIT LAYOUT       -->
+        <!-- ============================================== -->
+        <div id="panel-dailyreports" class="dash-panel">
+          <div class="dailyreports-split-container">
+            <!-- Left: Daily report submission form -->
+            <div class="card-wrapper glass" style="padding: 1.5rem;">
+              <h3 data-i18n="submit_report_title" style="font-weight: 800; margin-bottom: 0.5rem;">تقديم التقرير اليومي للنظافة</h3>
+              <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.5rem;">سجل ملاحظات النظافة الميدانية اليومية لمراجعتها واعتماد نقاطك.</p>
+              
+              <form id="dailyReportSubmissionForm">
+                <div class="form-group">
+                  <label for="dailyReportAreaSelect" data-i18n="report_form_area">اختر مرفق المدرسة</label>
+                  <select id="dailyReportAreaSelect" class="form-control select-control-styled" required>
+                    <option value="area_yard">ساحة المدرسة</option>
+                    <option value="area_classrooms">الفصول الدراسية</option>
+                    <option value="area_cafeteria">المقصف المدرسي</option>
+                    <option value="area_hallways">الممرات</option>
+                    <option value="area_restrooms">دورات المياه</option>
+                  </select>
+                </div>
+                
+                <div class="form-group">
+                  <label data-i18n="cleanliness_rating_label">التقييم اليدوي للنظافة</label>
+                  <!-- Star rating inputs -->
+                  <div class="star-rating-composer" style="display: flex; gap: 0.5rem; font-size: 1.5rem; color: var(--text-muted); cursor: pointer;">
+                    <i class="far fa-star rating-composer-star" data-rating="1"></i>
+                    <i class="far fa-star rating-composer-star" data-rating="2"></i>
+                    <i class="far fa-star rating-composer-star" data-rating="3"></i>
+                    <i class="far fa-star rating-composer-star" data-rating="4"></i>
+                    <i class="far fa-star rating-composer-star" data-rating="5"></i>
+                  </div>
+                  <input type="hidden" id="dailyReportRatingInput" value="3">
+                </div>
+
+                <div class="form-group">
+                  <label for="dailyReportNotes" data-i18n="report_form_notes">الملاحظات البيئية والإجراءات المتخذة</label>
+                  <textarea id="dailyReportNotes" class="form-control" rows="4" required placeholder="مثال: تم فرز النفايات البلاستيكية وتنظيف مقاعد المقصف..."></textarea>
+                </div>
+
+                <!-- Simulated attachment file upload -->
+                <div class="form-group">
+                  <label>مرفق الصورة الميدانية (اختياري)</label>
+                  <input type="file" id="dailyReportFileInput" accept="image/*" class="form-control">
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100 btn-lg" style="margin-top: 1rem;" data-i18n="save_user_btn">حفظ وإرسال التقرير</button>
+              </form>
+            </div>
+
+            <!-- Right: Admin approvals panel or submissions logs -->
+            <div class="card-wrapper glass" style="padding: 1.5rem;">
+              <h3 id="dailyReportsManagerTitle" data-i18n="manager_approvals_title" style="font-weight: 800; margin-bottom: 1.5rem;">طلبات المراجعة المعلقة للإداريين</h3>
+              
+              <div class="table-responsive">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th data-i18n="filter_user">المستخدم</th>
+                      <th data-i18n="log_area">المرفق</th>
+                      <th data-i18n="log_score">التقييم</th>
+                      <th data-i18n="rec_status">الحالة</th>
+                      <th>الإجراءات</th>
+                    </tr>
+                  </thead>
+                  <tbody id="dailyReportsTableBody">
+                    <!-- Daily reports submissions rows injected -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- PANEL 6: ENVIRONMENTAL CALENDAR                -->
+        <!-- ============================================== -->
+        <div id="panel-calendar" class="dash-panel">
+          <div class="calendar-layout">
+            <!-- Left: Visual Calendar Month Grid -->
+            <div class="card-wrapper glass" style="padding: 1.5rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <h3 style="font-weight: 800; font-size: 1.2rem;"><i class="fas fa-calendar-days text-primary"></i> التقويم البيئي المدرسي - يونيو 2026</h3>
+                <span style="font-weight: 700; color: var(--primary);">يونيو / June 2026</span>
+              </div>
+              
+              <!-- Calendar Grid -->
+              <div id="ecoCalendarGrid" style="display: flex; flex-direction: column;">
+                <!-- Header weekdays -->
+                <div class="calendar-grid" style="margin-top: 0;">
+                  <div class="calendar-day-header">الأحد</div>
+                  <div class="calendar-day-header">الأثنين</div>
+                  <div class="calendar-day-header">الثلاثاء</div>
+                  <div class="calendar-day-header">الأربعاء</div>
+                  <div class="calendar-day-header">الخميس</div>
+                  <div class="calendar-day-header">الجمعة</div>
+                  <div class="calendar-day-header">السبت</div>
+                </div>
+                <!-- Month days cells -->
+                <div class="calendar-grid" id="ecoCalendarCellsContainer" style="margin-top: 6px;">
+                  <!-- Injected via JS -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Event details and popovers -->
+            <div class="card-wrapper glass" style="padding: 1.5rem;" id="calendarEventSidebar">
+              <h3 style="font-weight: 800; font-size: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; margin-bottom: 1rem;">تفاصيل الفعالية المجدولة</h3>
+              <div id="calendarSidebarPlaceholder" style="text-align: center; color: var(--text-muted); padding: 2rem 0;">
+                <i class="fas fa-calendar-plus" style="font-size: 2.5rem; margin-bottom: 0.75rem; display: block;"></i>
+                <p style="font-size: 0.8rem;">انقر على أي يوم مظلل في التقويم لاستعراض الأنشطة وحملات التشجير القادمة.</p>
+              </div>
+              <div id="calendarSidebarContent" style="display: none;">
+                <h4 id="calendarEventTitle" style="font-weight: 800; font-size: 1.15rem; color: var(--primary); margin-bottom: 0.5rem;">حملة تشجير الفناء</h4>
+                <div style="font-size: 0.75rem; color: var(--text-muted); display: flex; flex-direction: column; gap: 0.35rem; margin-bottom: 1rem;">
+                  <span><i class="fas fa-clock"></i> التاريخ: <strong id="calendarEventDateText">يونيو 15, 2026</strong></span>
+                  <span><i class="fas fa-location-dot"></i> الموقع: <strong id="calendarEventLocationText">ساحة المدرسة الغربية</strong></span>
+                </div>
+                <p id="calendarEventDesc" style="font-size: 0.85rem; line-height: 1.6; color: var(--text-main); margin-bottom: 1.5rem;">
+                  حملة مدرسية لغرس 50 شتلة صديقة للبيئة لزيادة المسطحات الخضراء ومكافحة الانبعاثات بالتعاون مع أصدقاء البيئة.
+                </p>
+                <div style="padding: 0.75rem; border-radius: 8px; background: rgba(16, 185, 129, 0.08); border: 1px solid var(--border-color); font-size: 0.75rem; display: flex; justify-content: space-between; align-items: center;">
+                  <span>نقاط المشاركة المكتسبة:</span>
+                  <strong style="color: var(--primary); font-weight: 800;">+50 نقطة استدامة</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- PANEL 7: REWARDS & LEADERBOARD                 -->
+        <!-- ============================================== -->
+        <div id="panel-leaderboard" class="dash-panel">
+          <div class="gamification-panel-grid" style="display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 1.5rem;">
+            <!-- Points Wallet & User Streaks -->
+            <div class="points-wallet-card glass" style="padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between;">
+              <div>
+                <h3 data-i18n="rewards_title" style="font-weight: 800;">الجوائز والتصنيفات التحفيزية</h3>
+                <p class="card-desc" style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.5rem;" data-i18n="rewards_desc">يكسب طلاب فريق النظافة نقاطاً إضافية لكل تقرير يتم رفعه وعمليات التحقق.</p>
+                
+                <div class="wallet-badge-row" style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
+                  <div class="wallet-box" style="flex: 1; padding: 1rem; border-radius: 12px; background: var(--bg-input); border: 1px solid var(--border-color); text-align: center;">
+                    <span data-i18n="your_points" style="font-size: 0.7rem; color: var(--text-muted);">محفظة نقاطك الحالية</span>
+                    <h2 id="walletPointsValue" style="font-size: 2rem; font-weight: 800; color: var(--primary); margin: 0.25rem 0;">000</h2>
+                    <small style="font-size: 0.7rem;">نقاط استدامة</small>
+                  </div>
+                  <div class="streak-box" style="flex: 1; padding: 1rem; border-radius: 12px; background: var(--bg-input); border: 1px solid var(--border-color); text-align: center;">
+                    <span data-i18n="participation_streak" style="font-size: 0.7rem; color: var(--text-muted);">الالتزام المستمر</span>
+                    <h2 id="walletStreakValue" style="font-size: 2rem; font-weight: 800; color: #f59e0b; margin: 0.25rem 0;">0</h2>
+                    <small id="walletStreakDays" style="font-size: 0.7rem;">أيام متتالية</small>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Quick highlights -->
+              <div class="gamification-winners-row" style="display: flex; flex-direction: column; gap: 0.75rem;">
+                <div class="winner-block" style="display: flex; gap: 0.75rem; align-items: center; padding: 0.75rem; background: var(--bg-input); border-radius: 10px; border: 1px solid var(--border-color);">
+                  <i class="fas fa-user-check text-primary" style="font-size: 1.25rem;"></i>
+                  <div>
+                    <small style="color: var(--text-muted); font-size: 0.7rem;" data-i18n="top_student">الطالب المثالي</small>
+                    <h4 id="winnerTopStudent" style="font-size: 0.85rem; font-weight: 700;">سعيد الحربي</h4>
+                  </div>
+                </div>
+                <div class="winner-block" style="display: flex; gap: 0.75rem; align-items: center; padding: 0.75rem; background: var(--bg-input); border-radius: 10px; border: 1px solid var(--border-color);">
+                  <i class="fas fa-school text-warning" style="font-size: 1.25rem;"></i>
+                  <div>
+                    <small style="color: var(--text-muted); font-size: 0.7rem;" data-i18n="top_classroom">الفصل الأكثر استدامة</small>
+                    <h4 id="winnerTopClassroom" style="font-size: 0.85rem; font-weight: 700;">الصف الثاني (أ)</h4>
+                  </div>
+                </div>
+                <div class="winner-block" style="display: flex; gap: 0.75rem; align-items: center; padding: 0.75rem; background: var(--bg-input); border-radius: 10px; border: 1px solid var(--border-color);">
+                  <i class="fas fa-square-poll-vertical text-muted" style="font-size: 1.25rem;"></i>
+                  <div>
+                    <small style="color: var(--text-muted); font-size: 0.7rem;" data-i18n="most_improved">المنطقة الأكثر تحسناً</small>
+                    <h4 id="winnerMostImproved" style="font-size: 0.85rem; font-weight: 700;">دورات المياه</h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Leaderboard Standings tabs -->
+            <div class="leaderboards-card glass" style="padding: 1.5rem;">
+              <div class="tab-header-buttons" style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+                <button id="btnStudentLeaderboardTab" class="btn btn-secondary active w-100" onclick="switchLeaderboardType('student')">ترتيب الطلاب المتصدرين</button>
+                <button id="btnClassroomLeaderboardTab" class="btn btn-secondary w-100" onclick="switchLeaderboardType('classroom')">ترتيب الفصول المدرسية</button>
+              </div>
+
+              <div class="table-responsive" style="max-height: 380px; overflow-y: auto;">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th data-i18n="rank_col" style="width: 80px;">الترتيب</th>
+                      <th data-i18n="name_col">الاسم / الفصل</th>
+                      <th data-i18n="points_col" style="width: 120px;">إجمالي النقاط</th>
+                    </tr>
+                  </thead>
+                  <tbody id="leaderboardTableBody">
+                    <!-- Injected dynamically -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- PANEL 8: ANALYTICS & CHARTS                    -->
+        <!-- ============================================== -->
+        <div id="panel-analytics" class="dash-panel">
+          <div class="analytics-top-bar glass" style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; margin-bottom: 1.5rem;">
+            <h3 data-i18n="analytics_title" style="font-weight: 800;">إحصائيات وتقارير الاستدامة</h3>
+            <div class="btn-group">
+              <button class="btn btn-secondary btn-sm" onclick="exportReportSim('daily')" data-i18n="gen_daily">تصدير تقرير يومي</button>
+              <button class="btn btn-secondary btn-sm" onclick="exportReportSim('weekly')" data-i18n="gen_weekly">تصدير تقرير أسبوعي</button>
+              <button class="btn btn-secondary btn-sm" onclick="exportReportSim('monthly')" data-i18n="gen_monthly">تصدير تقرير شهري</button>
+            </div>
+          </div>
+
+          <!-- Charts Layout Grid -->
+          <div class="charts-layout-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+            <!-- Chart 1: Cleanliness Trends -->
+            <div class="chart-wrapper-card glass" style="padding: 1.5rem;">
+              <h4 data-i18n="chart_cleanliness_trends" style="font-weight: 700; font-size: 0.95rem; margin-bottom: 1rem;">تغير مستويات النظافة بمرور الوقت</h4>
+              <div style="height: 220px;">
+                <canvas id="chartCleanlinessTrends"></canvas>
+              </div>
+            </div>
+
+            <!-- Chart 2: Waste Type Dist -->
+            <div class="chart-wrapper-card glass" style="padding: 1.5rem;">
+              <h4 data-i18n="chart_waste_dist" style="font-weight: 700; font-size: 0.95rem; margin-bottom: 1rem;">توزيع أنواع النفايات المكتشفة</h4>
+              <div style="height: 220px;">
+                <canvas id="chartWasteDistribution"></canvas>
+              </div>
+            </div>
+
+            <!-- Chart 3: Most Polluted Areas -->
+            <div class="chart-wrapper-card glass" style="padding: 1.5rem;">
+              <h4 data-i18n="chart_polluted_areas" style="font-weight: 700; font-size: 0.95rem; margin-bottom: 1rem;">المناطق الأكثر تلوثاً (المعدل %)</h4>
+              <div style="height: 220px;">
+                <canvas id="chartPollutedAreas"></canvas>
+              </div>
+            </div>
+
+            <!-- Chart 4: Pollution by Time of Day -->
+            <div class="chart-wrapper-card glass" style="padding: 1.5rem;">
+              <h4 data-i18n="chart_pollution_time" style="font-weight: 700; font-size: 0.95rem; margin-bottom: 1rem;">معدل التلوث بالنسبة لأوقات اليوم</h4>
+              <div style="height: 220px;">
+                <canvas id="chartPollutionByTime"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- PANEL 9: AI RECOMMENDATIONS                    -->
+        <!-- ============================================== -->
+        <div id="panel-recommendations" class="dash-panel">
+          <div class="card-wrapper glass" style="padding: 1.5rem;">
+            <h3 data-i18n="rec_title" style="font-weight: 800;">توصيات الاستدامة الذكية</h3>
+            <p class="card-desc" style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;" data-i18n="rec_desc">توجيهات وإرشادات يولدها نظام الذكاء الاصطناعي تلقائياً بناءً على تقارير المدرسة وسلوك التلوث.</p>
+            
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th data-i18n="appName">التوصية</th>
+                    <th data-i18n="notes_placeholder">السبب / المحفز</th>
+                    <th data-i18n="rec_priority">الأولوية</th>
+                    <th data-i18n="rec_status">الحالة</th>
+                  </tr>
+                </thead>
+                <tbody id="recommendationsTableBody">
+                  <!-- Injected via JavaScript -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- PANEL 10: AUDIT HISTORY                        -->
+        <!-- ============================================== -->
+        <div id="panel-history" class="dash-panel">
+          <div class="card-wrapper glass" style="padding: 1.5rem;">
+            <h3 data-i18n="history_title" style="font-weight: 800;">السجلات التاريخية وتدقيق البيانات</h3>
+            
+            <!-- Filters Toolbar row -->
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin: 1.5rem 0 2rem 0;">
+              <select id="filterArea" class="form-control select-control-styled">
+                <option value="all" data-i18n="all_areas">جميع المرافق</option>
+                <option value="area_yard" data-i18n="area_yard">ساحة المدرسة</option>
+                <option value="area_classrooms" data-i18n="area_classrooms">الفصول الدراسية</option>
+                <option value="area_cafeteria" data-i18n="area_cafeteria">المقصف المدرسي</option>
+                <option value="area_hallways" data-i18n="area_hallways">الممرات</option>
+                <option value="area_restrooms" data-i18n="area_restrooms">دورات المياه</option>
+              </select>
+
+              <select id="filterUser" class="form-control select-control-styled">
+                <option value="all" data-i18n="all_users">جميع المستخدمين</option>
+                <!-- populated dynamically -->
+              </select>
+
+              <select id="filterWaste" class="form-control select-control-styled">
+                <option value="all" data-i18n="all_wastes">جميع أنواع المخلفات</option>
+                <option value="trash_plastic" data-i18n="trash_plastic">بلاستيك</option>
+                <option value="trash_paper" data-i18n="trash_paper">أوراق</option>
+                <option value="trash_food" data-i18n="trash_food">بقايا طعام</option>
+                <option value="trash_other" data-i18n="trash_other">مخلفات أخرى</option>
+              </select>
+
+              <button class="btn btn-primary" onclick="resetHistoryFilters()"><i class="fas fa-rotate-left"></i> تصفير الفلاتر</button>
+            </div>
+
+            <!-- Reports List Table -->
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th data-i18n="log_no">رقم اللوج</th>
+                    <th data-i18n="log_date">التاريخ والوقت</th>
+                    <th data-i18n="log_area">مرفق المدرسة</th>
+                    <th data-i18n="log_score">تقييم النظافة</th>
+                    <th data-i18n="metric_pollution">نسبة التلوث</th>
+                    <th data-i18n="log_by">بواسطة</th>
+                    <th data-i18n="log_details">الإجراءات</th>
+                  </tr>
+                </thead>
+                <tbody id="historyTableBody">
+                  <!-- Dynamic Reports rows -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- PANEL 11: USER MANAGEMENT PANEL                -->
+        <!-- ============================================== -->
+        <div id="panel-users" class="dash-panel">
+          <!-- User Management Grid -->
+          <div class="grid-user-admin">
+            <div class="card-wrapper glass" style="padding: 1.5rem;">
+              <h3 data-i18n="user_mgmt" style="font-weight: 800;">إدارة شؤون الحسابات والمستخدمين</h3>
+              
+              <!-- Search bar -->
+              <div class="search-user-bar" style="margin: 1rem 0;">
+                <input type="text" id="adminSearchUser" class="form-control" placeholder="ابحث باسم المستخدم أو بريده الإلكتروني...">
+              </div>
+
+              <!-- Users Table -->
+              <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th data-i18n="user_fullname">الاسم الكامل</th>
+                      <th data-i18n="user_email">البريد الإلكتروني</th>
+                      <th data-i18n="user_role">الدور</th>
+                      <th data-i18n="log_details">التحكم</th>
+                    </tr>
+                  </thead>
+                  <tbody id="adminUsersTableBody">
+                    <!-- Users list injected -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Add / Edit User Form card -->
+            <div class="card-wrapper glass" style="padding: 1.5rem;">
+              <h3 id="adminUserFormTitle" data-i18n="add_user_btn" style="font-weight: 800;">إضافة حساب مستخدم جديد</h3>
+              <form id="adminUserForm" style="margin-top: 1.5rem;">
+                <input type="hidden" id="adminUserEditEmail">
+                
+                <div class="form-group">
+                  <label for="adminUserFullName" data-i18n="user_fullname">الاسم الكامل</label>
+                  <input type="text" id="adminUserFullName" class="form-control" required placeholder="سعد الغامدي">
+                </div>
+                
+                <div class="form-group">
+                  <label for="adminUserEmail" data-i18n="user_email">البريد الإلكتروني</label>
+                  <input type="email" id="adminUserEmail" class="form-control" required placeholder="user@nafas.edu">
+                </div>
+                
+                <div class="form-group">
+                  <label for="adminUserRole" data-i18n="user_role">دور الصلاحية</label>
+                  <select id="adminUserRole" class="form-control select-control-styled">
+                    <option value="role_student" data-i18n="role_student">طالب</option>
+                    <option value="role_teacher" data-i18n="role_teacher">معلم / معلمة</option>
+                    <option value="role_staff" data-i18n="role_staff">عضو النظافة والصيانة</option>
+                    <option value="role_admin" data-i18n="role_admin">مدير النظام</option>
+                  </select>
+                </div>
+                
+                <div class="form-group">
+                  <label for="adminUserAssignedArea" data-i18n="user_assigned_area">المنطقة المخصصة له</label>
+                  <select id="adminUserAssignedArea" class="form-control select-control-styled">
+                    <option value="all" data-i18n="all_areas">كافة المرافق</option>
+                    <option value="area_yard" data-i18n="area_yard">ساحة المدرسة</option>
+                    <option value="area_classrooms" data-i18n="area_classrooms">الفصول الدراسية</option>
+                    <option value="area_cafeteria" data-i18n="area_cafeteria">المقصف المدرسي</option>
+                    <option value="area_hallways" data-i18n="area_hallways">الممرات</option>
+                    <option value="area_restrooms" data-i18n="area_restrooms">دورات المياه</option>
+                  </select>
+                </div>
+
+                <!-- One Time access recovery switch -->
+                <div class="form-group" style="display: none;" id="adminOnetimeToggleContainer">
+                  <label for="adminUserOnetime" style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-weight: 700; font-size: 0.85rem;">
+                    <input type="checkbox" id="adminUserOnetime" style="width: 18px; height: 18px; cursor: pointer;">
+                    <span data-i18n="onetime_toggle">تصريح الدخول لمرة واحدة (حالات الطوارئ)</span>
+                  </label>
+                  <p style="font-size: 0.7rem; color: var(--text-muted); margin-top: 5px;">في حال نسيان الطالب لكلمة مروره، قم بتفعيل هذا الخيار لتمكينه من إعادة تعيين كلمة مرور جديدة فور تسجيل الدخول.</p>
+                </div>
+
+                <div style="display: flex; gap: 0.5rem; margin-top: 1.5rem;">
+                  <button type="submit" class="btn btn-primary w-100" data-i18n="save_user_btn">حفظ بيانات الحساب</button>
+                  <button type="button" id="adminCancelEditBtn" class="btn btn-secondary" style="display: none;" onclick="resetAdminUserForm()">إلغاء التعديل</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- PANEL 12: USER PROFILE & BADGES                -->
+        <!-- ============================================== -->
+        <div id="panel-profile" class="dash-panel">
+          <!-- Profile metadata wrapper -->
+          <div class="profile-metadata-container">
+            <div id="profileUserAvatar" class="user-avatar" style="width: 80px; height: 80px; font-size: 2.5rem; border-radius: 20px;">U</div>
+            <div>
+              <h2 id="profileUserDisplayName" style="font-weight: 800; font-size: 1.6rem; color: var(--primary);">اسم المستخدم</h2>
+              <span id="profileUserDisplayRole" style="font-size: 0.9rem; color: var(--text-muted); font-weight: 700; display: block; margin-top: 2px;">طالب</span>
+              <p id="profileUserEmail" style="font-size: 0.8rem; color: var(--text-muted); margin-top: 5px;">email@nafas.edu</p>
+            </div>
+          </div>
+
+          <!-- Achievements Badges Grid -->
+          <div class="card-wrapper glass" style="padding: 2rem;">
+            <h3 style="font-weight: 800; font-size: 1.25rem;"><i class="fas fa-id-card text-primary"></i> أوسمتي وإنجازات الاستدامة البيئية</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;">الأوسمة والشهادات التقديرية المكتسبة بناءً على مساهمتك ونقاطك الفعالة.</p>
+            
+            <div class="profile-badge-grid">
+              <!-- Badge 1: Sustainability Champion -->
+              <div class="badge-item-card" id="badge-sustainability-card">
+                <div class="badge-icon-wrapper"><i class="fas fa-medal"></i></div>
+                <div class="badge-name" data-i18n="badge_sustainability">بطل الاستدامة</div>
+                <div class="badge-desc" data-i18n="badge_sustainability_desc">جمع 500 نقطة استدامة.</div>
+              </div>
+              <!-- Badge 2: Recycling Expert -->
+              <div class="badge-item-card" id="badge-recycling-card">
+                <div class="badge-icon-wrapper"><i class="fas fa-recycle"></i></div>
+                <div class="badge-name" data-i18n="badge_recycling">خبير إعادة التدوير</div>
+                <div class="badge-desc" data-i18n="badge_recycling_desc">فرز 5 بلاغات كرتون/بلاستيك.</div>
+              </div>
+              <!-- Badge 3: Water Guardian -->
+              <div class="badge-item-card" id="badge-water-card">
+                <div class="badge-icon-wrapper"><i class="fas fa-faucet-drip"></i></div>
+                <div class="badge-name" data-i18n="badge_water">حارس المياه</div>
+                <div class="badge-desc" data-i18n="badge_water_desc">المساهمة في صيانة مرافق المياه.</div>
+              </div>
+              <!-- Badge 4: Energy Saver -->
+              <div class="badge-item-card" id="badge-energy-card">
+                <div class="badge-icon-wrapper"><i class="fas fa-plug-circle-bolt"></i></div>
+                <div class="badge-name" data-i18n="badge_energy">موفر الطاقة</div>
+                <div class="badge-desc" data-i18n="badge_energy_desc">المساهمة في جولات توفير الكهرباء.</div>
+              </div>
+              <!-- Badge 5: Eco Ambassador -->
+              <div class="badge-item-card" id="badge-eco-card">
+                <div class="badge-icon-wrapper"><i class="fas fa-seedling"></i></div>
+                <div class="badge-name" data-i18n="badge_eco">سفير البيئة</div>
+                <div class="badge-desc" data-i18n="badge_eco_desc">ترشيح ودعم فريق النظافة المدرسية.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- PANEL 13: ANNOUNCEMENTS BROADCASTING           -->
+        <!-- ============================================== -->
+        <div id="panel-announcements" class="dash-panel">
+          <div class="grid-user-admin">
+            <!-- Composer form -->
+            <div class="card-wrapper glass" style="padding: 1.5rem;">
+              <h3 data-i18n="broadcast_title" style="font-weight: 800; margin-bottom: 0.5rem;">بث الإعلانات والتعميمات البيئية</h3>
+              <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.5rem;">تتيح هذه اللوحة للإدارة توجيه وبث رسائل وتنبيهات فورية للمستخدمين فورا.</p>
+              
+              <form id="announcementBroadcastForm">
+                <div class="form-group">
+                  <label for="announcementTargetSelect" data-i18n="target_role">الفئة المستهدفة</label>
+                  <select id="announcementTargetSelect" class="form-control select-control-styled" required>
+                    <option value="all" data-i18n="all_users_ann">جميع منسوبي المدرسة</option>
+                    <option value="role_student" data-i18n="role_student">الطلاب فقط</option>
+                    <option value="role_teacher" data-i18n="role_teacher">المعلمين فقط</option>
+                    <option value="role_staff" data-i18n="role_staff">عضو النظافة والصيانة</option>
+                  </select>
+                </div>
+                
+                <div class="form-group">
+                  <label for="announcementComposerText">نص الإعلان المدرسي</label>
+                  <textarea id="announcementComposerText" class="form-control" rows="5" required data-i18n-placeholder="composer_placeholder" placeholder="مثال: يرجى التجمع غداً في تمام الساعة 9:00 ص للمشاركة في حملة تشجير الفناء..."></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100 btn-lg" style="margin-top: 1rem;" data-i18n="broadcast_btn">بث الإعلان</button>
+              </form>
+            </div>
+
+            <!-- Broadcast log list -->
+            <div class="card-wrapper glass" style="padding: 1.5rem;">
+              <h3 style="font-weight: 800; margin-bottom: 1.5rem;">سجل الإعلانات الموجهة المرسلة</h3>
+              <div class="table-responsive">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th style="width: 100px;">التاريخ</th>
+                      <th>الفئة</th>
+                      <th>نص الرسالة</th>
+                    </tr>
+                  </thead>
+                  <tbody id="announcementsBroadcastLogBody">
+                    <!-- Announcements logs injected -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- PANEL 14: NOTIFICATIONS TIMELINE               -->
+        <!-- ============================================== -->
+        <div id="panel-notifications" class="dash-panel">
+          <div class="card-wrapper glass" style="padding: 1.5rem;">
+            <h3 data-i18n="nav_notifications" style="font-weight: 800; margin-bottom: 1rem;">سجل الإشعارات المستلمة</h3>
+            <div id="notificationsTimelineContainer" style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem;">
+              <!-- Notifications timeline dynamic cards -->
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- PANEL 15: SETTINGS & PREFERENCES               -->
+        <!-- ============================================== -->
+        <div id="panel-settings" class="dash-panel">
+          <div class="card-wrapper glass" style="max-width: 600px; margin: 0 auto; padding: 2rem;">
+            <h3 data-i18n="settings_title" style="font-weight: 800;">الإعدادات العامة وتخصيص المنصة</h3>
+            
+            <form id="userPreferencesForm" style="margin-top: 1.5rem;">
+              <div class="form-group">
+                <label for="settingsLanguage" data-i18n="lang_label">لغة التطبيق الرسمية</label>
+                <select id="settingsLanguage" class="form-control select-control-styled">
+                  <option value="ar" data-i18n="arabic">العربية (RTL)</option>
+                  <option value="en" data-i18n="english">English (LTR)</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="settingsTheme" data-i18n="theme_label">مظهر وألوان الواجهة</label>
+                <select id="settingsTheme" class="form-control select-control-styled">
+                  <option value="light" data-i18n="theme_light">الوضع النهاري (فاتح)</option>
+                  <option value="dark" data-i18n="theme_dark">الوضع الليلي (داكن)</option>
+                </select>
+              </div>
+
+              <!-- Encryption disclaimer -->
+              <p style="font-size: 0.75rem; color: var(--text-muted); line-height: 1.6; margin-top: 2rem; padding: 0.75rem; border-radius: 8px; background: rgba(16, 185, 129, 0.05); border: 1px dashed var(--border-color);" data-i18n="dbInfoText">
+                تخزين البيانات مشفر ومحمي بالكامل في قاعدة بيانات PostgreSQL الرئيسية مع نسخ احتياطي متزامن في MongoDB.
+              </p>
+
+              <button type="submit" class="btn btn-primary w-100 btn-lg" style="margin-top: 1.5rem;" data-i18n="save_settings">حفظ الإعدادات</button>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </section>
+
+  <!-- ======================================================= -->
+  <!--               INTEGRATED FLOATING AI CHATBOT            -->
+  <!-- ======================================================= -->
+  <div id="aiChatbotWrapper" class="ai-chatbot-wrapper" style="display: none;">
+    <!-- Chat Badge Button trigger -->
+    <button id="btnAiChatbotToggle" class="btn-chatbot-badge" aria-label="Open AI Assistant">
+      <i class="fas fa-brain"></i>
+      <span class="badge-pulsing-glow"></span>
+    </button>
+
+    <!-- Chat Dialog Window Panel -->
+    <div id="aiChatbotWindow" class="chatbot-window glass">
+      <!-- Chat Header -->
+      <div class="chatbot-header" style="padding: 1rem; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; background: var(--bg-app); border-radius: 12px 12px 0 0;">
+        <div class="chatbot-title" style="display: flex; gap: 0.5rem; align-items: center;">
+          <i class="fas fa-leaf text-primary"></i>
+          <div>
+            <h4 data-i18n="chat_title" style="font-size: 0.85rem; font-weight: 800;">المساعد البيئي الذكي لنَفَس</h4>
+            <small style="font-size: 0.65rem; color: var(--text-muted);">Nafas AI Assistant</small>
+          </div>
+        </div>
+        <button id="btnAiChatbotClose" class="chatbot-close-btn" style="background: transparent; border: none; color: var(--text-muted); cursor: pointer; font-size: 1.25rem;">&times;</button>
+      </div>
+
+      <!-- Chat Messages log stream -->
+      <div id="chatbotMessageLogs" class="chatbot-messages-area" style="padding: 1rem; overflow-y: auto; height: 260px; display: flex; flex-direction: column; gap: 0.75rem;">
+        <!-- Injected via JS -->
+      </div>
+
+      <!-- Typing Indicator -->
+      <div id="chatbotTypingIndicator" class="chatbot-typing-bubble" style="display: none; padding: 0.5rem 1rem; align-items: center; gap: 0.35rem;">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <small data-i18n="chat_typing" style="margin-inline-start: 5px; color: var(--text-muted);">يكتب الآن...</small>
+      </div>
+
+      <!-- Chat entry bar -->
+      <form id="chatbotInputForm" class="chatbot-entry-bar" style="display: flex; gap: 0.5rem; padding: 0.75rem 1rem; border-top: 1px solid var(--border-color); background: var(--bg-app); border-radius: 0 0 12px 12px;">
+        <input type="text" id="chatbotMessageField" autocomplete="off" class="form-control chatbot-input" data-i18n-placeholder="chat_placeholder" placeholder="اكتب استفسارك هنا...">
+        <button type="submit" class="btn-chatbot-send" style="background: var(--primary); border: none; width: 40px; height: 40px; border-radius: 10px; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center;"><i class="fas fa-paper-plane"></i></button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Detail Report Modal Dialog View -->
+  <div id="reportDetailModal" class="modal-overlay">
+    <div class="modal-content glass" style="max-width: 550px;">
+      <button class="modal-close" onclick="closeModal('reportDetailModal')">&times;</button>
+      <div class="modal-header">
+        <h2 id="modalReportTitle">تفاصيل تقرير الاستدامة</h2>
+        <p id="modalReportId">ID: R-1002</p>
+      </div>
+      <div class="modal-body">
+        <div class="detail-report-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+          <div class="detail-report-field">
+            <small data-i18n="log_date" style="color: var(--text-muted);">التاريخ والوقت</small>
+            <h5 id="modalReportDate">00/00/0000 00:00</h5>
+          </div>
+          <div class="detail-report-field">
+            <small data-i18n="log_area" style="color: var(--text-muted);">مرفق المدرسة</small>
+            <h5 id="modalReportArea">الممرات</h5>
+          </div>
+          <div class="detail-report-field">
+            <small data-i18n="log_by" style="color: var(--text-muted);">بواسطة</small>
+            <h5 id="modalReportBy">طالب</h5>
+          </div>
+          <div class="detail-report-field">
+            <small data-i18n="metric_rating" style="color: var(--text-muted);">تقييم النظافة</small>
+            <h5 id="modalReportScore">5/5</h5>
+          </div>
+        </div>
+
+        <div class="detail-report-image-box" style="margin-top: 1rem; border-radius: 10px; overflow: hidden; height: 200px; display: flex; align-items: center; justify-content: center; background: var(--bg-input);">
+          <canvas id="modalReportCanvas" width="480" height="200" style="width: 100%; height: 100%; object-fit: contain;"></canvas>
+        </div>
+
+        <div class="detail-report-notes-box" style="margin-top: 1rem; background: var(--bg-app); padding: 1rem; border-radius: 10px; border: 1px solid var(--border-color);">
+          <small data-i18n="notes_placeholder" style="font-weight: 700; color: var(--text-muted);">ملاحظات ميدانية:</small>
+          <p id="modalReportNotes" style="font-size: 0.95rem; margin-top: 0.25rem;">لا توجد ملاحظات.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chart.js Library CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Load Modules Scripts -->
+  <script src="js/i18n.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/ai.js"></script>
+  <script src="js/digital-twin.js"></script>
+  <script src="js/dashboard.js"></script>
+
+</body>
+</html>

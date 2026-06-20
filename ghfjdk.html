@@ -1,0 +1,291 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Cairo',sans-serif}
+.wrap{padding:0;direction:rtl;font-family:'Cairo',sans-serif;background:var(--color-background-tertiary);min-height:600px}
+.topbar{background:var(--color-background-primary);border-bottom:0.5px solid var(--color-border-tertiary);display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:56px}
+.logo{display:flex;align-items:center;gap:8px;font-size:18px;font-weight:500;color:#1D9E75}
+.logo-icon{width:32px;height:32px;background:#1D9E75;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px}
+.nav-icons{display:flex;align-items:center;gap:4px}
+.nav-btn{width:36px;height:36px;border-radius:var(--border-radius-md);border:none;background:transparent;color:var(--color-text-secondary);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;transition:background .15s}
+.nav-btn:hover{background:var(--color-background-secondary)}
+.nav-btn.active{background:var(--color-background-secondary);color:#1D9E75}
+.layout{display:flex;height:calc(100vh - 56px);min-height:544px}
+.sidebar{width:52px;background:var(--color-background-primary);border-left:0.5px solid var(--color-border-tertiary);display:flex;flex-direction:column;align-items:center;padding:12px 0;gap:4px;flex-shrink:0}
+.sb-btn{width:40px;height:40px;border-radius:var(--border-radius-md);border:none;background:transparent;color:var(--color-text-secondary);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:20px;transition:all .15s;position:relative}
+.sb-btn:hover{background:var(--color-background-secondary);color:#1D9E75}
+.sb-btn.active{background:#EAF3DE;color:#1D9E75}
+.sb-sep{width:28px;height:0.5px;background:var(--color-border-tertiary);margin:4px 0}
+.main{flex:1;overflow-y:auto;padding:20px}
+.page-header{margin-bottom:20px}
+.page-title{font-size:18px;font-weight:500;color:var(--color-text-primary);margin-bottom:2px}
+.page-sub{font-size:13px;color:var(--color-text-secondary)}
+.score-row{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:12px;margin-bottom:16px}
+.score-main{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:20px;display:flex;align-items:center;gap:20px}
+.score-circle{width:80px;height:80px;flex-shrink:0;position:relative}
+.score-circle svg{width:80px;height:80px}
+.score-num{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.score-big{font-size:22px;font-weight:500;color:#1D9E75;line-height:1}
+.score-label{font-size:10px;color:var(--color-text-secondary);margin-top:2px}
+.score-info{flex:1}
+.score-title{font-size:14px;font-weight:500;color:var(--color-text-primary);margin-bottom:4px}
+.score-desc{font-size:12px;color:var(--color-text-secondary);line-height:1.5}
+.score-badge{display:inline-block;background:#EAF3DE;color:#3B6D11;font-size:11px;padding:2px 10px;border-radius:20px;margin-top:6px}
+.metric-card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:16px}
+.metric-icon{width:32px;height:32px;border-radius:var(--border-radius-md);display:flex;align-items:center;justify-content:center;font-size:16px;margin-bottom:10px}
+.metric-icon.green{background:#EAF3DE;color:#3B6D11}
+.metric-icon.red{background:#FCEBEB;color:#A32D2D}
+.metric-icon.amber{background:#FAEEDA;color:#854F0B}
+.metric-icon.blue{background:#E6F1FB;color:#185FA5}
+.metric-val{font-size:22px;font-weight:500;color:var(--color-text-primary);margin-bottom:2px}
+.metric-label{font-size:12px;color:var(--color-text-secondary)}
+.metric-change{font-size:11px;margin-top:4px}
+.metric-change.up{color:#3B6D11}
+.metric-change.down{color:#A32D2D}
+.grid2{display:grid;grid-template-columns:1.2fr 1fr;gap:12px;margin-bottom:16px}
+.card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:16px}
+.card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.card-title{font-size:14px;font-weight:500;color:var(--color-text-primary)}
+.card-badge{font-size:11px;background:var(--color-background-secondary);color:var(--color-text-secondary);padding:2px 8px;border-radius:20px}
+.area-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.area-name{font-size:13px;color:var(--color-text-primary);width:80px;flex-shrink:0}
+.area-bar-wrap{flex:1;height:6px;background:var(--color-background-secondary);border-radius:3px;overflow:hidden}
+.area-bar{height:6px;border-radius:3px}
+.area-pct{font-size:12px;color:var(--color-text-secondary);width:36px;text-align:left}
+.heatmap-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.heat-cell{border-radius:var(--border-radius-md);padding:10px 12px;text-align:center}
+.heat-cell.clean{background:#EAF3DE}
+.heat-cell.warn{background:#FAEEDA}
+.heat-cell.danger{background:#FCEBEB}
+.heat-cell-name{font-size:11px;font-weight:500;margin-bottom:2px}
+.heat-cell.clean .heat-cell-name{color:#3B6D11}
+.heat-cell.warn .heat-cell-name{color:#854F0B}
+.heat-cell.danger .heat-cell-name{color:#A32D2D}
+.heat-dot{width:8px;height:8px;border-radius:50%;margin:0 auto 2px}
+.heat-cell.clean .heat-dot{background:#639922}
+.heat-cell.warn .heat-dot{background:#BA7517}
+.heat-cell.danger .heat-dot{background:#E24B4A}
+.heat-cell-score{font-size:12px}
+.heat-cell.clean .heat-cell-score{color:#639922}
+.heat-cell.warn .heat-cell-score{color:#BA7517}
+.heat-cell.danger .heat-cell-score{color:#E24B4A}
+.recs-list{display:flex;flex-direction:column;gap:8px}
+.rec-item{display:flex;align-items:flex-start;gap:10px;padding:10px;background:var(--color-background-secondary);border-radius:var(--border-radius-md)}
+.rec-priority{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.rec-priority.high{background:#E24B4A}
+.rec-priority.med{background:#EF9F27}
+.rec-priority.low{background:#639922}
+.rec-text{font-size:12px;color:var(--color-text-primary);line-height:1.5;flex:1}
+.rec-status{font-size:10px;padding:1px 8px;border-radius:20px;flex-shrink:0;margin-top:2px}
+.rec-status.pending{background:#E6F1FB;color:#185FA5}
+.rec-status.inprogress{background:#FAEEDA;color:#854F0B}
+.alert-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:var(--border-radius-md);margin-bottom:6px}
+.alert-item.warn{background:#FAEEDA;border:0.5px solid #FAC775}
+.alert-item.danger{background:#FCEBEB;border:0.5px solid #F7C1C1}
+.alert-icon{font-size:16px;flex-shrink:0}
+.alert-item.warn .alert-icon{color:#854F0B}
+.alert-item.danger .alert-icon{color:#A32D2D}
+.alert-text{font-size:12px;line-height:1.4}
+.alert-item.warn .alert-text{color:#854F0B}
+.alert-item.danger .alert-text{color:#A32D2D}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px}
+.leader-row{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:0.5px solid var(--color-border-tertiary)}
+.leader-row:last-child{border-bottom:none}
+.leader-rank{font-size:12px;font-weight:500;width:20px;color:var(--color-text-secondary)}
+.leader-rank.gold{color:#BA7517}
+.leader-avatar{width:28px;height:28px;border-radius:50%;background:#EAF3DE;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:#3B6D11;flex-shrink:0}
+.leader-name{font-size:12px;color:var(--color-text-primary);flex:1}
+.leader-pts{font-size:12px;font-weight:500;color:#1D9E75}
+.upload-zone{border:1.5px dashed var(--color-border-secondary);border-radius:var(--border-radius-lg);padding:28px;text-align:center;cursor:pointer;transition:all .15s}
+.upload-zone:hover{border-color:#1D9E75;background:#EAF3DE}
+.upload-icon{font-size:28px;color:var(--color-text-secondary);margin-bottom:8px}
+.upload-text{font-size:13px;color:var(--color-text-secondary)}
+.upload-btn{margin-top:12px;padding:7px 20px;background:#1D9E75;color:#fff;border:none;border-radius:var(--border-radius-md);font-size:13px;cursor:pointer;font-family:'Cairo',sans-serif}
+.tab-row{display:flex;gap:4px;margin-bottom:14px}
+.tab{padding:5px 14px;border-radius:20px;font-size:12px;cursor:pointer;border:0.5px solid var(--color-border-tertiary);background:transparent;color:var(--color-text-secondary);font-family:'Cairo',sans-serif;transition:all .15s}
+.tab.active{background:#1D9E75;color:#fff;border-color:#1D9E75}
+.chart-bars{display:flex;align-items:flex-end;gap:8px;height:80px;margin-top:8px}
+.bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px}
+.bar{width:100%;border-radius:4px 4px 0 0;background:#EAF3DE;transition:height .3s}
+.bar-label{font-size:10px;color:var(--color-text-secondary)}
+.waste-legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.waste-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.waste-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--color-text-secondary)}
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600&display=swap" rel="stylesheet">
+
+<div class="wrap">
+<div class="topbar">
+  <div class="nav-icons">
+    <button class="nav-btn" onclick="sendPrompt('أرني صفحة تحليل الصور بالذكاء الاصطناعي')"><i class="ti ti-brain" aria-hidden="true"></i></button>
+    <button class="nav-btn" onclick="sendPrompt('أرني صفحة الإعدادات وتبديل اللغة')"><i class="ti ti-settings" aria-hidden="true"></i></button>
+    <button class="nav-btn" onclick="sendPrompt('أرني صفحة الإشعارات')"><i class="ti ti-bell" aria-hidden="true"></i></button>
+    <div style="width:30px;height:30px;border-radius:50%;background:#EAF3DE;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;color:#3B6D11;margin-right:4px">أح</div>
+  </div>
+  <div class="logo">
+    <span>نَفَس</span>
+    <div class="logo-icon"><i class="ti ti-leaf" aria-hidden="true"></i></div>
+  </div>
+</div>
+
+<div class="layout">
+<div class="main">
+  <div class="page-header">
+    <div class="page-title">لوحة الاستدامة</div>
+    <div class="page-sub">الثلاثاء، ١٦ يونيو ٢٠٢٦ — مدرسة النور الدولية</div>
+  </div>
+
+  <div class="score-row">
+    <div class="score-main">
+      <div class="score-circle">
+        <svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="33" fill="none" stroke="var(--color-background-secondary)" stroke-width="7"/><circle cx="40" cy="40" r="33" fill="none" stroke="#1D9E75" stroke-width="7" stroke-dasharray="207.3" stroke-dashoffset="41.5" stroke-linecap="round" transform="rotate(-90 40 40)"/></svg>
+        <div class="score-num"><span class="score-big">٨٠</span><span class="score-label">/ ١٠٠</span></div>
+      </div>
+      <div class="score-info">
+        <div class="score-title">مؤشر الاستدامة</div>
+        <div class="score-desc">المدرسة تحقق أداءً جيداً في معايير النظافة والاستدامة البيئية</div>
+        <span class="score-badge"><i class="ti ti-trending-up" style="font-size:11px;vertical-align:-1px" aria-hidden="true"></i> جيد — ارتفع ٥ نقاط هذا الأسبوع</span>
+      </div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-icon green"><i class="ti ti-sparkles" aria-hidden="true"></i></div>
+      <div class="metric-val">٨٧٪</div>
+      <div class="metric-label">درجة النظافة الكلية</div>
+      <div class="metric-change up"><i class="ti ti-arrow-up" style="font-size:11px" aria-hidden="true"></i> +٣٪ عن أمس</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-icon amber"><i class="ti ti-alert-triangle" aria-hidden="true"></i></div>
+      <div class="metric-val">المقصف</div>
+      <div class="metric-label">أكثر المناطق تلوثاً</div>
+      <div class="metric-change down"><i class="ti ti-arrow-down" style="font-size:11px" aria-hidden="true"></i> ٤٥٪ نظافة</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-icon blue"><i class="ti ti-file-report" aria-hidden="true"></i></div>
+      <div class="metric-val">١٢</div>
+      <div class="metric-label">تقارير اليوم</div>
+      <div class="metric-change up"><i class="ti ti-photo" style="font-size:11px" aria-hidden="true"></i> ٢٨ صورة مرفوعة</div>
+    </div>
+  </div>
+
+  <div style="margin-bottom:10px">
+    <div class="alert-item warn"><i class="ti ti-alert-triangle alert-icon" aria-hidden="true"></i><div class="alert-text">المقصف: كثافة نفايات عالية — يُنصح بتنظيف فوري قبل الفسحة القادمة</div></div>
+    <div class="alert-item danger"><i class="ti ti-map-pin alert-icon" aria-hidden="true"></i><div class="alert-text">الحمامات / الطابق الثاني: لم يُرفع تقرير منذ ٦ ساعات — يرجى المتابعة</div></div>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title"><i class="ti ti-map" style="font-size:15px;vertical-align:-2px;margin-left:5px;color:#1D9E75" aria-hidden="true"></i>خريطة حرارية للمدرسة</div>
+        <div class="tab-row" style="margin-bottom:0">
+          <button class="tab active">يوم</button>
+          <button class="tab">أسبوع</button>
+          <button class="tab">شهر</button>
+        </div>
+      </div>
+      <div class="heatmap-grid">
+        <div class="heat-cell clean" onclick="sendPrompt('أرني تفاصيل منطقة الفناء')">
+          <div class="heat-dot"></div>
+          <div class="heat-cell-name">الفناء</div>
+          <div class="heat-cell-score">٩٢٪</div>
+        </div>
+        <div class="heat-cell warn" onclick="sendPrompt('أرني تقارير الممرات وتوصيات التحسين')">
+          <div class="heat-dot"></div>
+          <div class="heat-cell-name">الممرات</div>
+          <div class="heat-cell-score">٦٨٪</div>
+        </div>
+        <div class="heat-cell danger" onclick="sendPrompt('خطة عمل عاجلة لتحسين نظافة المقصف')">
+          <div class="heat-dot"></div>
+          <div class="heat-cell-name">المقصف</div>
+          <div class="heat-cell-score">٤٥٪</div>
+        </div>
+        <div class="heat-cell clean">
+          <div class="heat-dot"></div>
+          <div class="heat-cell-name">الفصول</div>
+          <div class="heat-cell-score">٨٩٪</div>
+        </div>
+        <div class="heat-cell warn">
+          <div class="heat-dot"></div>
+          <div class="heat-cell-name">الحمامات</div>
+          <div class="heat-cell-score">٦١٪</div>
+        </div>
+        <div class="heat-cell clean">
+          <div class="heat-dot"></div>
+          <div class="heat-cell-name">المداخل</div>
+          <div class="heat-cell-score">٩٥٪</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:12px;margin-top:12px;font-size:11px;color:var(--color-text-secondary);align-items:center">
+        <span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#639922;margin-left:4px"></span>نظيف</span>
+        <span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#BA7517;margin-left:4px"></span>يحتاج عناية</span>
+        <span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#E24B4A;margin-left:4px"></span>ملوث</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-title"><i class="ti ti-chart-bar" style="font-size:15px;vertical-align:-2px;margin-left:5px;color:#1D9E75" aria-hidden="true"></i>أنواع النفايات اليوم</div></div>
+      <div class="chart-bars">
+        <div class="bar-wrap"><div class="bar" style="height:70%;background:#97C459"></div><div class="bar-label">بلاستيك</div></div>
+        <div class="bar-wrap"><div class="bar" style="height:45%;background:#5DCAA5"></div><div class="bar-label">ورق</div></div>
+        <div class="bar-wrap"><div class="bar" style="height:90%;background:#EF9F27"></div><div class="bar-label">غذاء</div></div>
+        <div class="bar-wrap"><div class="bar" style="height:30%;background:#7F77DD"></div><div class="bar-label">أخرى</div></div>
+      </div>
+      <div class="waste-legend">
+        <div class="waste-item"><div class="waste-dot" style="background:#97C459"></div>بلاستيك ٣٥٪</div>
+        <div class="waste-item"><div class="waste-dot" style="background:#5DCAA5"></div>ورق ٢٢٪</div>
+        <div class="waste-item"><div class="waste-dot" style="background:#EF9F27"></div>غذاء ٤٣٪ ↑</div>
+      </div>
+      <button style="width:100%;margin-top:12px;padding:8px;background:transparent;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);font-size:12px;color:var(--color-text-secondary);cursor:pointer;font-family:'Cairo',sans-serif" onclick="sendPrompt('أرني تقرير النفايات التفصيلي لهذا الأسبوع')">عرض التقرير الكامل ↗</button>
+    </div>
+  </div>
+
+  <div class="grid3">
+    <div class="card">
+      <div class="card-header"><div class="card-title"><i class="ti ti-bulb" style="font-size:15px;vertical-align:-2px;margin-left:5px;color:#1D9E75" aria-hidden="true"></i>توصيات الذكاء الاصطناعي</div></div>
+      <div class="recs-list">
+        <div class="rec-item">
+          <div class="rec-priority high"></div>
+          <div style="flex:1"><div class="rec-text">زيادة سلال المهملات في المقصف</div><span class="rec-status pending">معلق</span></div>
+        </div>
+        <div class="rec-item">
+          <div class="rec-priority med"></div>
+          <div style="flex:1"><div class="rec-text">جدولة تنظيف بعد كل فسحة</div><span class="rec-status inprogress">جارٍ</span></div>
+        </div>
+        <div class="rec-item">
+          <div class="rec-priority low"></div>
+          <div style="flex:1"><div class="rec-text">حملة توعية بالفرز للصف الخامس</div><span class="rec-status pending">معلق</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-title"><i class="ti ti-trophy" style="font-size:15px;vertical-align:-2px;margin-left:5px;color:#1D9E75" aria-hidden="true"></i>لوحة الشرف</div></div>
+      <div class="leader-row"><span class="leader-rank gold">🥇</span><div class="leader-avatar">سم</div><span class="leader-name">سارة محمد</span><span class="leader-pts">٣٤٠ نقطة</span></div>
+      <div class="leader-row"><span class="leader-rank">٢</span><div class="leader-avatar">عخ</div><span class="leader-name">علي خالد</span><span class="leader-pts">٢٩٠ نقطة</span></div>
+      <div class="leader-row"><span class="leader-rank">٣</span><div class="leader-avatar">رأ</div><span class="leader-name">ريم أحمد</span><span class="leader-pts">٢٤٥ نقطة</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-title"><i class="ti ti-camera" style="font-size:15px;vertical-align:-2px;margin-left:5px;color:#1D9E75" aria-hidden="true"></i>رفع صورة للتحليل</div></div>
+      <div class="upload-zone" onclick="sendPrompt('أرني واجهة رفع الصور وتحليل الذكاء الاصطناعي بالتفصيل')">
+        <div class="upload-icon"><i class="ti ti-cloud-upload" aria-hidden="true"></i></div>
+        <div class="upload-text">اسحب صورة هنا أو اضغط للرفع</div>
+        <button class="upload-btn">تحليل بالذكاء الاصطناعي ↗</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sidebar">
+  <button class="sb-btn active" title="الرئيسية"><i class="ti ti-home" aria-hidden="true"></i></button>
+  <button class="sb-btn" title="الخريطة الحرارية" onclick="sendPrompt('أرني صفحة الخريطة الحرارية التفاعلية بالتفصيل')"><i class="ti ti-map-2" aria-hidden="true"></i></button>
+  <button class="sb-btn" title="رفع صورة" onclick="sendPrompt('أرني واجهة رفع الصور وتحليل الذكاء الاصطناعي')"><i class="ti ti-camera" aria-hidden="true"></i></button>
+  <button class="sb-btn" title="التقارير" onclick="sendPrompt('أرني صفحة التقارير والإحصاءات')"><i class="ti ti-chart-line" aria-hidden="true"></i></button>
+  <div class="sb-sep"></div>
+  <button class="sb-btn" title="التوصيات" onclick="sendPrompt('أرني صفحة التوصيات الذكية كاملة')"><i class="ti ti-bulb" aria-hidden="true"></i></button>
+  <button class="sb-btn" title="المكافآت" onclick="sendPrompt('أرني صفحة المكافآت والنقاط')"><i class="ti ti-trophy" aria-hidden="true"></i></button>
+  <button class="sb-btn" title="السجل" onclick="sendPrompt('أرني صفحة السجل والتاريخ')"><i class="ti ti-history" aria-hidden="true"></i></button>
+  <div class="sb-sep"></div>
+  <button class="sb-btn" title="الإعدادات" onclick="sendPrompt('أرني صفحة الإعدادات مع دعم اللغة والوضع الليلي')"><i class="ti ti-settings" aria-hidden="true"></i></button>
+</div>
+</div>
+</div>
